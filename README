@@ -1,0 +1,18 @@
+This is a collection of config files that I use for my arch linux environment
+on my PC for things like shell(currently zsh) customization, Xorg configuration
+vim/neovim customization, etc.
+
+config_files go in ~/.config or home/user/.config directory
+  Holds my neovim configuration
+
+dot_files go ~/ or home/user/ directory
+  Contains my xinitrc for the startx/xinit script to work, my zsh shell 
+  configuration, and my vim configuration
+
+etc_files go in /etc
+  Contains my xorg.conf that makes my laptop's nvidia card work as well as
+  settings for libinput to disable mouse acceleration and configure my touchpad
+  to be similar to default synaptic settings present on windows
+
+local_files go in ~/.local/share or /home/user/.local/share directory
+  Contains the vim plugins that I use on a daily basis

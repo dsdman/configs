@@ -1,0 +1,23 @@
+# use the nvidia card, not the intel one
+xrandr --setprovideroutputsource modesetting NVIDIA-0
+xrandr --auto
+xrandr --dpi 96
+
+#switch statement for starting desktop
+case $WM in
+openbox)
+  exec openbox-session
+  ;;
+enlightenment)
+  exec enlightenment_start
+ 	;;
+fluxbox)
+  exec fluxbox
+	;;
+lxqt)
+  exec startlxqt 
+  ;;
+*)
+  exec enlightenment_start
+  ;;
+esac
