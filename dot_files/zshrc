@@ -32,15 +32,15 @@ alias l='ls -la'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias vi='nvim'
-alias vim='nvim'
+#alias vim='nvim'
+alias view='nvim -R'
 alias steam-wine='WINEDEBUG=-all wine /mnt/windows/games/PC/Steam/Steam.exe >/dev/null 2>&1 &'
 alias pico='nano'
 alias ssh-cse-usc='ssh -l ddesai -p 222 L-1D39-04.cse.sc.edu'
 alias ipconfig='ifconfig'
 alias psa='ps -auxf'
-alias eclimd='/home/dylan/apps/eclipse/eclimd'
 alias v='nvim'
-alias blkren='\ls | vim -'
+alias blkren='\ls | nvim -'
 
 # Various variables to set
 export CFLAGS="-march=native -O3 -pipe -fomit-frame-pointer"
