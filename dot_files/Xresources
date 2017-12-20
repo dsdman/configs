@@ -1,0 +1,19 @@
+! set the name of terminal
+URxvt*termName: rxvt-unicode
+
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+
+! disable the scrollbar
+URxvt*scrollBar: false
+
+! Enable changing of the background colors
+URxvt*dynamicColors: on
+
+! change to dark gray background
+URxvt*foreground: white
+URxvt*background: black
+
+! use Deja Vu Sans Mono size 12
+URxvt*font: xft:Deja Vu Sans Mono:size=12:antialias=true
+URxvt*boldfont: xft:Deja Vu Sans Mono:size=12:antialias=true
