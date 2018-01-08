@@ -13,3 +13,8 @@ etc_files go in /etc
   Contains my xorg.conf that makes my laptop's nvidia card work as well as
   settings for libinput to disable mouse acceleration and configure my touchpad
   to be similar to default synaptic settings present on windows
+
+suckless_files go with the appropriate program's source code
+  Contains various "config.h"  C source files for the suckless envrionment; at
+  the moment, it includes dwm (window manager), st (terminal emulator), and
+  slstatus (status bar).
