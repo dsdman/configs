@@ -4,13 +4,26 @@ set shortmess=I "disable welcome screen
 syntax on " enable syntax highlighting
 set showmatch "highlight matching () and {} and []
 set number "line numbers
+set relativenumber "hybrid relative numbers
 highlight LineNr ctermfg=215
 set ruler "ruler
 set showmode "show mode you are in
 set mouse=a "mouse 
 set noswapfile "disable swap file
+set splitright "split right
+set splitbelow "split below
 filetype plugin indent on "enable vim's file browser
 set showcmd "show keystrokes in normal mode
+
+" leader
+let mapleader = "-"
+nnoremap <leader>w :w!<cr>
+nnoremap <leader>tn :tabnew<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>te :tabedit 
+nnoremap <leader>v :vsplit 
+nnoremap <leader>s <C-W>w
+nnoremap <leader>q :q
 
 " searching
 set hlsearch "highlight searches
@@ -28,18 +41,19 @@ augroup END
 
 "Function for highlighting column
 function! ToggleColorColumn()
-if &colorcolumn != '' | set colorcolumn&
-else                  | set colorcolumn=80
-endif
+  if &colorcolumn != '' | set colorcolumn&
+  else                  | set colorcolumn=80
+  endif
 endfunction
 
-"Press 'L' to toggle highlight column
+" template commands
+command Makefile execute "r ~/.local/share/nvim/templates/makefile-boilerplate"
+command ClassHeader execute "r ~/.local/share/nvim/templates/class-header.h"
+
+"Press ';' to toggle highlight column
 :nnoremap ; :call ToggleColorColumn()!<CR>
 set cursorline
 map <C-_> I//<esc>
-
-"map ctrl + s to save
-:nnoremap <C-s> :w! <return>
 
 "tabline configuration
 set showtabline=2  " 0, 1 or 2; when to use a tab pages line
@@ -121,7 +135,7 @@ set wildmenu "display all matches when completing
 
 " menu customization
 hi! Pmenu ctermfg=black ctermbg=darkgrey 
-set completeopt-=preview "disable scratch preview window
+set completeopt-=preview "disable preview window
 
 "Neovim specific options
 if has('nvim')
@@ -130,25 +144,14 @@ if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'zchee/deoplete-clang', { 'do': ':UpdateRemotePlugins' }
   Plug 'plasticboy/vim-markdown'
-  "Plug 'vim-airline/vim-airline' OVERKILL, DEFAULT RULER WORKS WITH TABLINE FIXES ABOVE
-  "Plug 'majutsushi/tagbar'
-  "Plug 'vim-airline/vim-airline-themes'
+  Plug  'itchyny/lightline.vim'
   call plug#end()
 
   "deocomplete
   call deoplete#enable()
+  let g:deoplete#enable_at_startup = 1
   let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
   let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
-
-  "airline
-  "set guifont=Monaco\ for\ Powerline "make sure to escape spacess
-  "let g:airline_powerline_fonts = 1
-  "let g:airline_symbols_ascii = 1
-  "let g:airline#extensions#tabline#enabled = 1 "smarter tabs with airline
-  "let g:airline#extensions#tabline#show_tab_nr = 1
-  "let g:airline#extensions#tabline#tab_nr_type = 1
-  "let g:airline#extensions#tabline#tabs_label = 't'
-  "let g:airline_theme='distinguished'
 
   "terminal shortcuts
   :tnoremap <C-t> <C-\><C-n> 

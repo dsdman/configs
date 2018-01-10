@@ -3,21 +3,26 @@ xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --auto
 xrandr --dpi 96
 
+#reassign right alt to windows and keep it out of mod1 group
+xmodmap -e "keycode 108 = Super_L"
+xmodmap -e "remove mod1 = Super_L"
+
 #switch statement for starting desktop
 case $WM in
-openbox)
-  exec openbox-session
-  ;;
 enlightenment)
   exec enlightenment_start
  	;;
-fluxbox)
-  exec fluxbox
-	;;
 lxqt)
   exec startlxqt 
   ;;
+dwm)
+  slstatus &
+  feh --bg-scale /home/dylan/Documents/My Pictures/wallpaper/wall8.jpg
+  exec dwm
+  ;;
 *)
-  exec enlightenment_start
+  slstatus &
+  feh --bg-scale /home/dylan/Documents/My Pictures/wallpaper/wall8.jpg
+  exec dwm
   ;;
 esac
