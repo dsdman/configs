@@ -1,29 +1,41 @@
+/* See LICENSE file for copyright and license details. */
 /* including x11 keysym for volume/brightness keys */
 #include <X11/XF86keysym.h>
-
-/* See LICENSE file for copyright and license details. */
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+/*   Display modes of the tab bar: never shown, always shown, shown only in  */
+/*   monocle mode in presence of several windows.                            */
+/*   A mode can be disabled by moving it after the showtab_nmodes end marker */
+enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always};
+static const int showtab            = showtab_auto; /* Default tab bar show mode  */
+static const Bool toptab            = False;         /* False means bottom tab bar */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]          = { "DejaVu Sans Mono:size=12" };
-static const char dmenufont[]       = "monospace:size=12";
-static const char col_gray1[]       = "#222222";
+static const char *fonts[]          = { "monospace:size=10" };
+static const char dmenufont[]       = "monospace:size=10";
+static const char col_white[]       = "#FFFFFF";
 static const char col_black[]       = "#000000";
-static const char col_orangered[]   = "#8b2500";
+static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_darkred[]     = "#870505";
-static const char col_firebrick[]   = "#B22222";
-static const char col_darkbrown[]   = "#A96A68";
+static const char col_indian_red[]  = "#B0171F";
+static const char col_darkblue[]    = "#1D345E";
+static const char col_green_blue[]  = "#345447";
+static const char col_brick_brown[] = "#A97770";
+static const char col_biege[]       = "#F5F5DC";
+static const char col_tan[]         = "#D2B48C";
+static const char col_tan2[]        = "#D3C58E";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
+	/*[SchemeNorm] = { col_gray3, col_gray1, col_gray2 }, DEFAULTS
+	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },*/
+
 	[SchemeNorm] = { col_gray3, col_black, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_black, col_black },
+	[SchemeSel]  = { col_gray4, col_black, col_tan },
 };
 
 /* tagging */
@@ -36,19 +48,13 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
+	{ "SpeedCrunch",     NULL,       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 1;    /* number of clients in master area */
+static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
+static const int nmaster     = 2;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
-
-/*
-static const Layout layouts[] = {
-	{ "[]=",      tile },    
-	{ "><>",      NULL },    
-	{ "[M]",      monocle },
-};*/
 
 #include "grid.c"
 static const Layout layouts[] = {
@@ -72,9 +78,10 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_gray3, "-sb", col_darkbrown, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_gray3, "-sb", col_gray2, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *browser[]  = { "firefox", NULL };
+static const char *browser2[]  = { "chromium", NULL };
 static const char *editor[]  = { "st", "-e", "nvim", NULL };
 static const char *calc[]  = { "speedcrunch", NULL };
 static const char *filebrowser[]  = { "pcmanfm-qt", NULL };
@@ -90,21 +97,23 @@ static const char *downbacklight[] = { "xbacklight", "-dec", "10", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 25y 0w 0h" } },
-	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -25y 0w 0h" } },
-	{ MODKEY,                       XK_Right,  moveresize,     {.v = "25x 0y 0w 0h" } },
-	{ MODKEY,                       XK_Left,   moveresize,     {.v = "-25x 0y 0w 0h" } },
-	{ MODKEY|ShiftMask,             XK_Down,   moveresize,     {.v = "0x 0y 0w 25h" } },
-	{ MODKEY|ShiftMask,             XK_Up,     moveresize,     {.v = "0x 0y 0w -25h" } },
-	{ MODKEY|ShiftMask,             XK_Right,  moveresize,     {.v = "0x 0y 25w 0h" } },
-	{ MODKEY|ShiftMask,             XK_Left,   moveresize,     {.v = "0x 0y -25w 0h" } },
+	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 75y 0w 0h" } },
+	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -75y 0w 0h" } },
+	{ MODKEY,                       XK_Right,  moveresize,     {.v = "75x 0y 0w 0h" } },
+	{ MODKEY,                       XK_Left,   moveresize,     {.v = "-75x 0y 0w 0h" } },
+	{ MODKEY|ShiftMask,             XK_Down,   moveresize,     {.v = "0x 0y 0w 75h" } },
+	{ MODKEY|ShiftMask,             XK_Up,     moveresize,     {.v = "0x 0y 0w -75h" } },
+	{ MODKEY|ShiftMask,             XK_Right,  moveresize,     {.v = "0x 0y 75w 0h" } },
+	{ MODKEY|ShiftMask,             XK_Left,   moveresize,     {.v = "0x 0y -75w 0h" } },
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
   { MODKEY,                       XK_y,      spawn,          {.v = editor} },
   { MODKEY,                       XK_e,      spawn,          {.v = filebrowser } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
+	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = browser2 } },
   { MODKEY,                       XK_c,      spawn,          {.v = calc } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
+  { MODKEY|ShiftMask,             XK_b,      tabmode,        {-1} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
@@ -149,6 +158,7 @@ static Key keys[] = {
 
 /* button definitions */
 /* click can be ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
+
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
@@ -157,10 +167,11 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
+	{ ClkClientWin,    MODKEY|ShiftMask,    Button1,        killclient,     {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+  { ClkTabBar,            0,              Button1,        focuswin,       {0} },
 };
-

@@ -13,39 +13,69 @@ zstyle ':completion:*' list-colors 'di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43
 
 # enable vi mode
 bindkey -v
-#set -o vi
 
 #prompt
 autoload -Uz colors && colors
-#PROMPT="%n@%m %d%# "
-PROMPT="%n@%m:%~%# "
-#RPROMPT="[%[%n]%t]"
-RPROMPT="%[%n]%t"
+PROMPT="[%n@%m %~]% $ "
+#PROMPT="%{$fg[cyan]%}[%{$fg[yellow]%}%n@%m%{$reset_color%} %{$fg[blue]%}%~%{$reset_color%}%{$fg[cyan]%}]%{$reset_color%}% %{$fg[green]%}$%{$reset_color%} "
+#RPROMPT="%[%n]%t"
 
 # Various variables to set
 export CFLAGS="-march=native -O3 -pipe -fomit-frame-pointer"
 export CXXFLAGS="${CFLAGS}"
+export CXXFLAGS="${CFLAGS}"
 export PREFIX=/usr
 export EDITOR=/usr/bin/nvim
-export WM=dwm
+export WM=dwm-compositing
+export ELVISPATH=/home/dylan
+export ELVISBG=dark
 
 #aliases
+alias vimrc='$EDITOR ~/.config/nvim/init.vim'
+alias virc='$EDITOR ~/.exrc'
+alias zshrc='$EDITOR ~/.zshrc' 
+alias xinitrc='$EDITOR ~/.xinitrc'
+alias dwmrc='$EDITOR ~/apps/src/dwm/config.h'
+alias slstatusrc='$EDITOR ~/apps/src/slstatus/config.h'
+alias dosboxcfg='$EDITOR ~/.dosbox/dosbox-SVN.conf'
 alias ..='cd ..'           
 alias ...='cd ../..'       
 alias ....='cd ../../..'   
-alias c='clear'
-alias ls='ls --color=always'
-alias l='ls -la'
-alias grep='grep --color=auto'
-alias neovim='nvim'
-alias vim='nvim'
-alias view='nvim -R'
-alias steam-wine='wine /media/windows/games/PC/Steam/Steam.exe >/dev/null 2>&1 &'
-alias pico='nano'
-alias ssh-cse-usc='ssh -l ddesai -p 222 L-1D39-04.cse.sc.edu'
-alias ipconfig='ifconfig'
-alias psa='ps -auxf'
+alias .....='cd ../../../..'   
+alias D='cd ~/Desktop'
+alias d='cd ~/Downloads'
+alias m='cd ~/Music'
+alias V='cd ~/Videos'
+alias c='cd ~/Documents/school/College'
+alias a='cd ~/apps'
+alias p='cd ~/Documents/My\ Pictures'
+alias s='cd ~/apps/src'
+alias g='cd /media/windows/games'
+alias dwmsrc='cd ~/apps/src/dwm'
+alias configure-dosbox='CC="cc -m32" CXX="c++ -m32" ./configure --host=i686-pc-linux-gnu'
+alias doc='cd ~/Documents'
+alias win='cd /media/windows'
+alias winhome= 'cd /media/windows/Users/desai'
 alias v='nvim'
+alias l='ls -la'
+alias ls='ls --color=always'
+alias rmdir='rm -rfv'
+alias pico='nano'
+alias mupdf='mupdf-x11'
+alias neovim='nvim'
+alias update-zsh='source ~/.zshrc'
+#alias vim='nvim'
+#note: I use nvi from http://repo.or.cz/nvi.git instead of stock vi
+alias ex='nex'
+alias vi='nvi'
+#alias view='nvim -R'
+alias ssh-cse-usc='ssh -l ddesai -p 222 L-1D39-04.cse.sc.edu'
+alias grep='grep --color=auto'
+alias ipconfig='ifconfig'
+alias steam-wine='wine64 /media/windows/games/PC/Steam/Steam.exe -no-cef-sandbox >/dev/null 2>&1 &'
+alias wine-gaming-prefix='cp -rfv ~/.wine-gaming ~/.wine/'
+alias wine-default-prefix='rm -rfv ~/.wine/'
+alias debugflags='export CFLAGS="-g" && export CXXFLAGS="${CFLAGS}" && export CPPFLAGS="${CFLAGS}"'
+alias dosboxflags='export CFLAGS="" && export CXXFLAGS="${CFLAGS}" && export CPPFLAGS="${CFLAGS}"'
+alias psa='ps -auxf'
 alias blkren='\ls | $EDITOR -'
-alias vimrc='$EDITOR ~/.config/nvim/init.vim'
-alias zshrc='$EDITOR ~/.zshrc' 

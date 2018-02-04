@@ -5,25 +5,36 @@ syntax on " enable syntax highlighting
 set showmatch "highlight matching () and {} and []
 set number "line numbers
 set relativenumber "hybrid relative numbers
-highlight LineNr ctermfg=215
+"highlight LineNr ctermfg=215
+highlight LineNr ctermfg=180
 set ruler "ruler
 set showmode "show mode you are in
 set mouse=a "mouse 
 set noswapfile "disable swap file
 set splitright "split right
 set splitbelow "split below
-filetype plugin indent on "enable vim's file browser
+filetype plugin indent on
+filetype plugin on
+filetype on
 set showcmd "show keystrokes in normal mode
+set completefunc=syntaxcomplete#Complete
+set omnifunc=syntaxcomplete#Complete
 
-" leader
+" leader bindings
 let mapleader = "-"
-nnoremap <leader>w :w!<cr>
-nnoremap <leader>tn :tabnew<cr>
-nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>w :w<cr>
+nnoremap <leader>n :nohl<cr>
+nnoremap <leader>g <C-G>
+nnoremap <leader>r <C-R>
 nnoremap <leader>te :tabedit 
 nnoremap <leader>v :vsplit 
+nnoremap <leader>h :split 
 nnoremap <leader>s <C-W>w
 nnoremap <leader>q :q
+nnoremap <leader>j <C-D>
+nnoremap <leader>k <C-U>
+nnoremap <leader>p "+p
+nnoremap <leader>y "+y
 
 " searching
 set hlsearch "highlight searches
@@ -53,10 +64,11 @@ command ClassHeader execute "r ~/.local/share/nvim/templates/class-header.h"
 "Press ';' to toggle highlight column
 :nnoremap ; :call ToggleColorColumn()!<CR>
 set cursorline
-map <C-_> I//<esc>
 
-"tabline configuration
-set showtabline=2  " 0, 1 or 2; when to use a tab pages line
+"tabline/statusbar configuration
+set showtabline=1  " 0, 1 or 2; when to use a tab pages line
+"hi StatusLine ctermbg=black ctermfg=gray
+hi StatusLine ctermbg=black ctermfg=black
 set tabline=%!MyTabLine()  " custom tab pages line
 function MyTabLine()
   let s = '' " complete tabline goes here
@@ -134,7 +146,7 @@ set path +=** " tab-completion for everything
 set wildmenu "display all matches when completing
 
 " menu customization
-hi! Pmenu ctermfg=black ctermbg=darkgrey 
+hi! Pmenu ctermfg=cyan ctermbg=black
 set completeopt-=preview "disable preview window
 
 "Neovim specific options
@@ -144,7 +156,8 @@ if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'zchee/deoplete-clang', { 'do': ':UpdateRemotePlugins' }
   Plug 'plasticboy/vim-markdown'
-  Plug  'itchyny/lightline.vim'
+  Plug 'fidian/hexmode'
+  "Put lightline here if I need it
   call plug#end()
 
   "deocomplete
@@ -152,8 +165,4 @@ if has('nvim')
   let g:deoplete#enable_at_startup = 1
   let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
   let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
-
-  "terminal shortcuts
-  :tnoremap <C-t> <C-\><C-n> 
-  :nnoremap <F5> :vsplit term://zsh <return>A
 endif

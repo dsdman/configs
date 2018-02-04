@@ -1,0 +1,10 @@
+set ai
+set number
+set noerrorbells
+set ruler
+set hardtabs=2
+set ts=2
+set sw=2
+set noeb
+set showmode
+set magic
