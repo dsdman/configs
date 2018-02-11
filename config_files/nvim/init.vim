@@ -1,24 +1,26 @@
 " basic features of vim
-colorscheme desert "set colorscheme
 set shortmess=I "disable welcome screen
-syntax on " enable syntax highlighting
 set showmatch "highlight matching () and {} and []
+set background=dark
 set number "line numbers
-set relativenumber "hybrid relative numbers
+set relativenumber "line numbers
 "highlight LineNr ctermfg=215
 highlight LineNr ctermfg=180
 set ruler "ruler
+set laststatus=1 "don't waste space by showing statusline
 set showmode "show mode you are in
 set mouse=a "mouse 
 set noswapfile "disable swap file
 set splitright "split right
 set splitbelow "split below
+
+" Setup completions and syntax
 filetype plugin indent on
 filetype plugin on
 filetype on
-set showcmd "show keystrokes in normal mode
 set completefunc=syntaxcomplete#Complete
 set omnifunc=syntaxcomplete#Complete
+syntax off
 
 " leader bindings
 let mapleader = "-"
@@ -31,10 +33,10 @@ nnoremap <leader>v :vsplit
 nnoremap <leader>h :split 
 nnoremap <leader>s <C-W>w
 nnoremap <leader>q :q
-nnoremap <leader>j <C-D>
-nnoremap <leader>k <C-U>
-nnoremap <leader>p "+p
-nnoremap <leader>y "+y
+nnoremap <leader>d <C-D>
+nnoremap <leader>u <C-U>
+nnoremap <leader>a :syntax off<cr>
+nnoremap <leader>A :syntax on<cr>
 
 " searching
 set hlsearch "highlight searches
@@ -61,15 +63,18 @@ endfunction
 command Makefile execute "r ~/.local/share/nvim/templates/makefile-boilerplate"
 command ClassHeader execute "r ~/.local/share/nvim/templates/class-header.h"
 
-"Press ';' to toggle highlight column
-:nnoremap ; :call ToggleColorColumn()!<CR>
+"Press '\' to toggle highlight column
+:nnoremap \ :call ToggleColorColumn()!<CR>
 set cursorline
 
 "tabline/statusbar configuration
 set showtabline=1  " 0, 1 or 2; when to use a tab pages line
-"hi StatusLine ctermbg=black ctermfg=gray
-hi StatusLine ctermbg=black ctermfg=black
-set tabline=%!MyTabLine()  " custom tab pages line
+"hi StatusLine ctermbg=black ctermfg=black
+"hi StatusLine ctermbg=black ctermfg=black
+hi StatusLineFill ctermbg=black ctermfg=black
+hi TabLine ctermbg=black ctermfg=white
+hi TabLineFill ctermfg=black ctermbg=black
+set tabline=%!MyTabLine()  " custom tab pages line function
 function MyTabLine()
   let s = '' " complete tabline goes here
   " loop through each tab page
@@ -157,7 +162,7 @@ if has('nvim')
   Plug 'zchee/deoplete-clang', { 'do': ':UpdateRemotePlugins' }
   Plug 'plasticboy/vim-markdown'
   Plug 'fidian/hexmode'
-  "Put lightline here if I need it
+  "Put lightline here if I need it (I don't)
   call plug#end()
 
   "deocomplete
@@ -165,4 +170,8 @@ if has('nvim')
   let g:deoplete#enable_at_startup = 1
   let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
   let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
+
+  "Terminal DONT USE THIS BLOATED GARBAGE ANYMORE (tiling wm is better)
+  "nnoremap <leader>T :split term://zsh<cr>A
+  "nnoremap <F5> :vsplit term://zsh<cr>A
 endif

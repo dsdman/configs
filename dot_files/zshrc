@@ -23,12 +23,13 @@ PROMPT="[%n@%m %~]% $ "
 # Various variables to set
 export CFLAGS="-march=native -O3 -pipe -fomit-frame-pointer"
 export CXXFLAGS="${CFLAGS}"
-export CXXFLAGS="${CFLAGS}"
+export CPPFLAGS="${CFLAGS}"
 export PREFIX=/usr
-export EDITOR=/usr/bin/nvim
-export WM=dwm-compositing
-export ELVISPATH=/home/dylan
-export ELVISBG=dark
+#export EDITOR=/usr/bin/nvim/
+export EDITOR=/usr/local/bin/nvi
+export VISUAL=${EDITOR}
+#export EDITOR=/usr/bin/nvim
+export WM=dwm
 
 #aliases
 alias vimrc='$EDITOR ~/.config/nvim/init.vim'
@@ -36,12 +37,23 @@ alias virc='$EDITOR ~/.exrc'
 alias zshrc='$EDITOR ~/.zshrc' 
 alias xinitrc='$EDITOR ~/.xinitrc'
 alias dwmrc='$EDITOR ~/apps/src/dwm/config.h'
+alias cwd='printf "%q\n" "$(pwd)"'
+alias strc='$EDITOR ~/apps/src/st/config.h'
 alias slstatusrc='$EDITOR ~/apps/src/slstatus/config.h'
 alias dosboxcfg='$EDITOR ~/.dosbox/dosbox-SVN.conf'
-alias ..='cd ..'           
-alias ...='cd ../..'       
-alias ....='cd ../../..'   
-alias .....='cd ../../../..'   
+function chpwd() {
+  cwd > ~/.currdir
+}
+alias sd="cd $(cat ~/.currdir)"
+alias l='ls -la'
+alias ls='ls --color=always'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+#note: 'vimv' is from https://github.com/thameera/vimv
+alias vimv='~/apps/vimv'
+alias blkren='~/apps/vimv'
 alias D='cd ~/Desktop'
 alias d='cd ~/Downloads'
 alias m='cd ~/Music'
@@ -52,23 +64,21 @@ alias p='cd ~/Documents/My\ Pictures'
 alias s='cd ~/apps/src'
 alias g='cd /media/windows/games'
 alias dwmsrc='cd ~/apps/src/dwm'
-alias configure-dosbox='CC="cc -m32" CXX="c++ -m32" ./configure --host=i686-pc-linux-gnu'
+alias configure-32bit='CC="cc -m32" CXX="c++ -m32" ./configure --host=i686-pc-linux-gnu'
 alias doc='cd ~/Documents'
 alias win='cd /media/windows'
-alias winhome= 'cd /media/windows/Users/desai'
+alias winhome='cd /media/windows/Users/desai'
 alias v='nvim'
-alias l='ls -la'
-alias ls='ls --color=always'
+alias mplayer='mpv'
 alias rmdir='rm -rfv'
 alias pico='nano'
 alias mupdf='mupdf-x11'
 alias neovim='nvim'
 alias update-zsh='source ~/.zshrc'
-#alias vim='nvim'
-#note: I use nvi from http://repo.or.cz/nvi.git instead of stock vi
+alias vim='nvim'
+#note: I use nvi from https://sites.google.com/a/bostic.com/keithbostic/vi/ or http://repo.or.cz/nvi.git instead of stock vi
 alias ex='nex'
 alias vi='nvi'
-#alias view='nvim -R'
 alias ssh-cse-usc='ssh -l ddesai -p 222 L-1D39-04.cse.sc.edu'
 alias grep='grep --color=auto'
 alias ipconfig='ifconfig'
@@ -78,4 +88,3 @@ alias wine-default-prefix='rm -rfv ~/.wine/'
 alias debugflags='export CFLAGS="-g" && export CXXFLAGS="${CFLAGS}" && export CPPFLAGS="${CFLAGS}"'
 alias dosboxflags='export CFLAGS="" && export CXXFLAGS="${CFLAGS}" && export CPPFLAGS="${CFLAGS}"'
 alias psa='ps -auxf'
-alias blkren='\ls | $EDITOR -'
