@@ -12,34 +12,41 @@ compinit
 zstyle ':completion:*' list-colors 'di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
 # enable vi mode
-bindkey -v
+#bindkey -v
+setopt vi
 
 #prompt
 autoload -Uz colors && colors
-PROMPT="[%n@%m %~]% $ "
-#PROMPT="%{$fg[cyan]%}[%{$fg[yellow]%}%n@%m%{$reset_color%} %{$fg[blue]%}%~%{$reset_color%}%{$fg[cyan]%}]%{$reset_color%}% %{$fg[green]%}$%{$reset_color%} "
+PROMPT="%n %~ > "
+#PROMPT="[%n@%m %~]% $ "
 #RPROMPT="%[%n]%t"
 
 # Various variables to set
-export CFLAGS="-march=native -O3 -pipe -fomit-frame-pointer"
+export CFLAGS="-march=native -Os -pipe"
 export CXXFLAGS="${CFLAGS}"
 export CPPFLAGS="${CFLAGS}"
 export PREFIX=/usr
-#export EDITOR=/usr/bin/nvim/
-export EDITOR=/usr/local/bin/nvi
-export VISUAL=${EDITOR}
+export SRCDIR=~/apps/src/
+export APPDIR=~/apps/
+export VIS_PATH=~/.config/vis/
+#export EDITOR=/usr/local/bin/nvi
 #export EDITOR=/usr/bin/nvim
+export EDITOR=/usr/local/bin/vim
+#export EDITOR=/usr/local/bin/vis
+export VISUAL=${EDITOR}
 export WM=dwm
+#export WALL=/home/dylan/Documents/My\ Pictures/wallpaper/wall13.jpg
 
 #aliases
 alias vimrc='$EDITOR ~/.config/nvim/init.vim'
+alias visrc='$EDITOR ${VIS_PATH}visrc.lua'
 alias virc='$EDITOR ~/.exrc'
 alias zshrc='$EDITOR ~/.zshrc' 
 alias xinitrc='$EDITOR ~/.xinitrc'
-alias dwmrc='$EDITOR ~/apps/src/dwm/config.h'
+alias dwmrc='$EDITOR ${SRCDIR}/dwm/config.h'
 alias cwd='printf "%q\n" "$(pwd)"'
-alias strc='$EDITOR ~/apps/src/st/config.h'
-alias slstatusrc='$EDITOR ~/apps/src/slstatus/config.h'
+alias strc='$EDITOR ${SRCDIR}/st/config.h'
+alias slstatusrc='$EDITOR ${SRCDIR}/slstatus/config.h'
 alias dosboxcfg='$EDITOR ~/.dosbox/dosbox-SVN.conf'
 function chpwd() {
   cwd > ~/.currdir
@@ -59,23 +66,24 @@ alias d='cd ~/Downloads'
 alias m='cd ~/Music'
 alias V='cd ~/Videos'
 alias c='cd ~/Documents/school/College'
-alias a='cd ~/apps'
+alias a='cd ${APPDIR}'
 alias p='cd ~/Documents/My\ Pictures'
-alias s='cd ~/apps/src'
+alias s='cd ${SRCDIR}'
 alias g='cd /media/windows/games'
 alias dwmsrc='cd ~/apps/src/dwm'
 alias configure-32bit='CC="cc -m32" CXX="c++ -m32" ./configure --host=i686-pc-linux-gnu'
 alias doc='cd ~/Documents'
 alias win='cd /media/windows'
 alias winhome='cd /media/windows/Users/desai'
-alias v='nvim'
+alias v='${EDITOR}'
+alias e='ranger'
+#alias vim='nvim'
 alias mplayer='mpv'
+alias mplayer-no-video='mpv --no-video'
 alias rmdir='rm -rfv'
 alias pico='nano'
 alias mupdf='mupdf-x11'
-alias neovim='nvim'
 alias update-zsh='source ~/.zshrc'
-alias vim='nvim'
 #note: I use nvi from https://sites.google.com/a/bostic.com/keithbostic/vi/ or http://repo.or.cz/nvi.git instead of stock vi
 alias ex='nex'
 alias vi='nvi'
@@ -88,3 +96,5 @@ alias wine-default-prefix='rm -rfv ~/.wine/'
 alias debugflags='export CFLAGS="-g" && export CXXFLAGS="${CFLAGS}" && export CPPFLAGS="${CFLAGS}"'
 alias dosboxflags='export CFLAGS="" && export CXXFLAGS="${CFLAGS}" && export CPPFLAGS="${CFLAGS}"'
 alias psa='ps -auxf'
+#you want dick, you love dick, you need dick, you got it
+alias get-dick='echo http://traffic.libsyn.com/thedickshow/The_Dick_Show_xxx.mp3'

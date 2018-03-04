@@ -18,17 +18,17 @@ lxqt)
 dwm-compositing)
   compton &
   slstatus &
-  feh --bg-scale /home/dylan/Documents/My\ Pictures/wallpaper/wall8.jpg
+  #feh --bg-fill $WALL
   exec dwm
   ;;
 dwm)
   slstatus &
-  feh --bg-scale /home/dylan/Documents/My\ Pictures/wallpaper/wall8.jpg
+  #feh --bg-fill $WALL 
   exec dwm
   ;;
 *)
   slstatus &
-  feh --bg-scale /home/dylan/Documents/My\ Pictures/wallpaper/wall8.jpg
+  #feh --bg-fill $WALL
   exec dwm
   ;;
 esac

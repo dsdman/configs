@@ -1,0 +1,32 @@
+rename Music
+search 
+open_with
+find .
+rem 
+search .local
+search .config
+;
+se
+set line_numbers on
+q
+set number
+number
+set line_numbers
+set hostname_in_titlebar
+shell 
+shell sudo
+delete
+find h
+vim new
+!vim new
+vim
+command
+edit new
+edit 
+open_with hhh
+
+open_with l
+find 
+rename vector-populator.cc
+open_with 
+open_with vim

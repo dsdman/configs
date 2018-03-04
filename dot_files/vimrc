@@ -5,14 +5,16 @@ set background=dark
 set number "line numbers
 set relativenumber "line numbers
 "highlight LineNr ctermfg=215
-highlight LineNr ctermfg=180
+"highlight LineNr ctermfg=180
+highlight LineNr ctermfg=grey
 set ruler "ruler
-set laststatus=1 "don't waste space by showing statusline
+set laststatus=1 "don't waste space by showing whole statusline
 set showmode "show mode you are in
 set mouse=a "mouse 
 set noswapfile "disable swap file
 set splitright "split right
 set splitbelow "split below
+set encoding=utf-8 "enable unicode encoding
 
 " Setup completions and syntax
 filetype plugin indent on
@@ -20,7 +22,26 @@ filetype plugin on
 filetype on
 set completefunc=syntaxcomplete#Complete
 set omnifunc=syntaxcomplete#Complete
-syntax off
+syntax on
+
+" tab completion
+set complete=k "Global autocomplete
+set completeopt+=longest "show complete tab completions
+set path +=** " tab-completion for everything
+set wildmenu "display all matches when completing
+
+" searching
+set hlsearch "highlight searches
+set incsearch "enable increment search
+
+" tabs and formatting
+set tabstop=2 "make two columns the standard tab
+set shiftwidth=2 "indent 2
+set autoindent "Automatically indent
+set softtabstop=2 "makes it work for backspace and delete
+set expandtab "use spaces 
+set backspace=indent,eol,start "make backspace complete
+set encoding=utf-8 "Use utf-8 instead of ASCII
 
 " leader bindings
 let mapleader = "-"
@@ -37,10 +58,17 @@ nnoremap <leader>d <C-D>
 nnoremap <leader>u <C-U>
 nnoremap <leader>a :syntax off<cr>
 nnoremap <leader>A :syntax on<cr>
+"nnoremap <Leader>f :NERDTreeToggle<Enter>
 
-" searching
-set hlsearch "highlight searches
-set incsearch "enable increment search
+" custom commands
+command Makefile execute "r ~/.local/share/nvim/templates/makefile-boilerplate"
+command CClassHeader execute "r ~/.local/share/nvim/templates/class-header.h"
+command HexEdit execute "%!xxd"
+command Hex2Text execute "%!xxd -r"
+
+" menu customization
+hi! Pmenu ctermfg=grey ctermbg=black
+set completeopt-=preview "disable preview window
 
 "highlight the line number
 hi clear CursorLine
@@ -58,10 +86,6 @@ function! ToggleColorColumn()
   else                  | set colorcolumn=80
   endif
 endfunction
-
-" template commands
-command Makefile execute "r ~/.local/share/nvim/templates/makefile-boilerplate"
-command ClassHeader execute "r ~/.local/share/nvim/templates/class-header.h"
 
 "Press '\' to toggle highlight column
 :nnoremap \ :call ToggleColorColumn()!<CR>
@@ -84,7 +108,8 @@ function MyTabLine()
     " set the tab page number (for mouse clicks)
     let s .= '%' . (t + 1) . 'T'
     " set page number string
-    let s .= t + 1 . '.'
+    "let s .= t + 1 . '.'
+    let s .= t + 1 . ' '
     " get buffer names and statuses
     let n = ''  "temp string for buffer names while we loop and check buftype
     let m = 0  " &modified counter
@@ -135,43 +160,3 @@ function MyTabLine()
   endif
   return s
 endfunction"if exists("+showtabline")
-
-" tabs and formatting
-set tabstop=2 "make two columns the standard tab
-set shiftwidth=2 "indent 2
-set autoindent "Automatically indent
-set softtabstop=2 "makes it work for backspace and delete
-set expandtab "use spaces 
-set backspace=indent,eol,start "make backspace complete
-
-" tab completion
-set complete=k "Global autocomplete
-set completeopt+=longest "show complete tab completions
-set path +=** " tab-completion for everything
-set wildmenu "display all matches when completing
-
-" menu customization
-hi! Pmenu ctermfg=cyan ctermbg=black
-set completeopt-=preview "disable preview window
-
-"Neovim specific options
-if has('nvim')
-  "plugins
-  call plug#begin('~/.local/share/nvim/plugged')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'zchee/deoplete-clang', { 'do': ':UpdateRemotePlugins' }
-  Plug 'plasticboy/vim-markdown'
-  Plug 'fidian/hexmode'
-  "Put lightline here if I need it (I don't)
-  call plug#end()
-
-  "deocomplete
-  call deoplete#enable()
-  let g:deoplete#enable_at_startup = 1
-  let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
-  let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
-
-  "Terminal DONT USE THIS BLOATED GARBAGE ANYMORE (tiling wm is better)
-  "nnoremap <leader>T :split term://zsh<cr>A
-  "nnoremap <F5> :vsplit term://zsh<cr>A
-endif
