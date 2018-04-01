@@ -1,0 +1,22 @@
+pkgname=dwm-mygit
+pkgver=6.2
+pkgrel=1
+pkgdesc="The suckless window manager with my preferred patches"
+arch=('x86_64')
+url="dwm.suckless.org"
+license=('GPL')
+
+prepare() {
+  cd ..
+  make clean
+}
+
+build() {
+  cd ..
+	make
+}
+
+package() {
+  cd ..
+	make DESTDIR="$pkgdir/" install
+}

@@ -9,26 +9,20 @@ xmodmap -e "remove mod1 = Super_L"
 
 #switch statement for starting desktop
 case $WM in
-enlightenment)
-  exec enlightenment_start
- 	;;
-lxqt)
-  exec startlxqt 
-  ;;
 dwm-compositing)
   compton &
   slstatus &
-  #feh --bg-fill $WALL
+  feh --bg-fill $WALL
   exec dwm
   ;;
 dwm)
   slstatus &
-  #feh --bg-fill $WALL 
+  feh --bg-fill $WALL 
   exec dwm
   ;;
 *)
   slstatus &
-  #feh --bg-fill $WALL
+  feh --bg-fill $WALL
   exec dwm
   ;;
 esac

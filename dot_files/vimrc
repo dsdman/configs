@@ -4,8 +4,6 @@ set showmatch "highlight matching () and {} and []
 set background=dark
 set number "line numbers
 set relativenumber "line numbers
-"highlight LineNr ctermfg=215
-"highlight LineNr ctermfg=180
 highlight LineNr ctermfg=grey
 set ruler "ruler
 set laststatus=1 "don't waste space by showing whole statusline

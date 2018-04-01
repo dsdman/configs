@@ -1,8 +1,9 @@
+/* See LICENSE file for copyright and license details. */
 /* including x11 keysym for volume/brightness keys */
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always};
 static const int showtab            = showtab_auto;  /* Default tab bar show mode  */
@@ -15,21 +16,41 @@ static const char col_white[]       = "#FFFFFF";
 static const char col_black[]       = "#000000";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
+static const char col_grey2[]       = "#2B2B2C";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
+static const char col_gray5[]       = "#1E1B25";
 static const char col_firebrick[]   = "#B22222";
+static const char col_red[]         = "#CC0000";
 static const char col_greybrown[]   = "#322727";
-static const char col_orangy[]      = "#FC9C0A";
-static const char col_dark_blue[]   = "#1D345E";
-static const char col_green_blue[]  = "#345447";
+static const char col_crimson[]     = "#DC143C";
+static const char col_mint[]        = "#3EB489";
+static const char col_auora[]       = "#8E97B4";
+static const char col_yellow[]      = "#FFCC00";
+static const char col_yellow2[]     = "#FFA726";
+static const char col_dark_blue[]   = "#0000A0";
+static const char col_dark_grey[]   = "#2F4F4F";
 static const char col_brick_brown[] = "#A97770";
 static const char col_biege[]       = "#F5F5DC";
 static const char col_tan[]         = "#D2B48C";
+static const char col_purple[]      = "#6600CC";
+static const char col_orange[]      = "#DE680E";
 static const char col_tan2[]        = "#D3C58E";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
-	[SchemeNorm] = { col_gray3, col_black, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_black, col_firebrick },
+	/*               fg         bg         border   */
+  /* DARK THEME */
+	[SchemeNorm] = { col_gray3, col_gray5, col_gray2 },
+	[SchemeSel]  = { col_auora, col_gray5, col_mint },
+
+  /* LIGHT THMEME */
+	/*
+   * [SchemeNorm] = { col_black, col_white, col_gray2 },
+	 * [SchemeSel]  = { col_black, col_crimson, col_orange },*/
+
+  /* DEFAULT THEME */
+	/* [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+	 * [SchemeSel]  = { col_gray4, col_cyan,  col_cyan  }, */
 };
 
 /* tagging */
@@ -43,16 +64,15 @@ static const Rule rules[] = {
 	/* class          instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",         NULL,       NULL,       0,            1,           -1 },
 	{ "SpeedCrunch",  NULL,       NULL,       0,            1,           -1 },
-	{ "st",           NULL,       "dropdown", 0,            1,           -1 },
-	{ "st",           NULL,       "bc",       0,            1,           -1 },
+	{ "xterm-256color",           NULL,       "dropdown", 0,            1,           -1 },
+	{ "xterm-256color",           NULL,       "bc",       0,            1,           -1 },
 };
 
 /* layout(s) */
 static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 2;    /* number of clients in master area */
-static const int resizehints = 15;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
-#include "grid.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[T]",      tile },    /* first entry is default */
@@ -76,12 +96,14 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0";
-static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_gray3, "-sb", col_gray2, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray5, "-nf", col_gray3, "-sb", col_mint, "-sf", col_gray4, NULL };
+/* static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_gray3, "-sb", col_gray2, "-sf", col_gray4, NULL }; */
 static const char *termcmd[]  = { "st", NULL };
 static const char *browser[]  = { "firefox", NULL };
-static const char *browser2[]  = { "chromium", NULL };
+static const char *browser2[]  = { "python", "/home/dylan/apps/src/qutebrowser/qutebrowser.py", NULL };
 static const char *editor[]  = { "st", "-e", "vim", NULL };
 static const char *sys_mon[]  = { "st", "-e", "htop", NULL };
+static const char *display_setup[]  = {"st", "-e", "python", "/home/dylan/apps/src/dual-monitor-setup/dual-monitor-setup.py", NULL };
 static const char *calc[]  = { "speedcrunch", NULL };
 static const char *lockscreen[]  = { "slock", NULL };
 static const char *filebrowser[]  = { "st", "-e", "ranger", NULL };
@@ -89,13 +111,13 @@ static const char *screenshot[]  = { "scrot",  NULL };
 static const char *poweroff[] = { "systemctl", "poweroff", NULL};
 static const char *suspend[] = { "systemctl", "suspend", NULL};
 static const char *reboot[] = { "systemctl", "reboot", NULL};
-static const char *upvol[]   = { "/usr/bin/pactl", "set-sink-volume", "0", "+5%",     NULL };
-static const char *downvol[] = { "/usr/bin/pactl", "set-sink-volume", "0", "-5%",     NULL };
-static const char *mutevol[] = { "/usr/bin/pactl", "set-sink-mute",   "0", "toggle",  NULL };
+static const char *upvol[]   = { "amixer", "-D", "pulse", "sset", "Master", "5%+", NULL };
+static const char *downvol[] = { "amixer", "-D", "pulse", "sset", "Master", "5%-", NULL };
+static const char *mutevol[] = { "amixer", "-D", "pulse", "sset", "Master", "mute", NULL };
 static const char *upbacklight[] = { "xbacklight", "-inc", "10", NULL };
 static const char *downbacklight[] = { "xbacklight", "-dec", "10", NULL };
-static const char *dropdown[] = { "st", "-g", "135x17+75+10", "-t", "dropdown", NULL };
-static const char *dropdown2[] = { "st", "-g", "135x17+75+10", "-t", "bc", "-e", "bc", NULL };
+static const char *dropdown[] = { "st", "-g", "135x17+75+0", "-t", "dropdown", NULL };
+static const char *dropdown2[] = { "st", "-g", "135x17+75+0", "-t", "bc", "-e", "bc", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -113,13 +135,16 @@ static Key keys[] = {
 	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = browser2 } },
  	{ MODKEY,                       XK_c,      spawn,          {.v = calc } },
+ 	{ MODKEY,                       XK_p,      spawn,          {.v = display_setup } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_Escape, spawn,          {.v = sys_mon } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
  	{ MODKEY|ShiftMask,             XK_b,      tabmode,        {-1} },
  	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = dropdown } },
- 	{ MODKEY,                       XK_p,      spawn,          {.v = dropdown2 } },
+ 	{ MODKEY|ShiftMask,             XK_c,      spawn,          {.v = dropdown2 } },
  	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockscreen } },
+	{ MODKEY,                       XK_equal,  shiftview,      {.i = +1 } },
+	{ MODKEY,                       XK_minus,  shiftview,      {.i = -1 } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },

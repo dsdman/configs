@@ -4,7 +4,7 @@
 static const int interval = 1000;
 
 /* text to show if no value can be retrieved */
-static const char unknown_str[] = "n/a";
+static const char unknown_str[] = "null";
 
 /* maximum output string length */
 #define MAXLEN 2048
@@ -54,8 +54,10 @@ static const struct arg args[] = {
 	/*{ cpu_perc, "[CPU %3s%%] ", NULL    },
 	{ ram_perc, "[RAM %2s%%] ", NULL    },*/
   { wifi_essid, " \U0001F50C %s ",  "wlp8s0"},
-  { vol_perc,  " \U0001F509 %2s%% ",      "/dev/mixer1"},
-  { battery_state,  "\U0001F50B%3s",      "BAT1"},
-  { battery_perc,  "%4s%% ",      "BAT1"},
-	{ datetime, " %5s% ",       "%a %D %l:%M%p" },
+  { vol_perc,  " \U0001F3A7 %2s%% ",      "/dev/mixer1"},
+  //{ battery_state,  " %3s% ",      "BAT1"},
+  /* { battery_state,  "%3s\U000026A1",      "BAT1"}, */
+  /* { battery_perc,  "%4s%% ",      "BAT1"}, */
+  { battery_perc,  " \U000026A1%3s%% ",      "BAT1"},
+	{ datetime, " %4s% ",       "%a %D %l:%M%p" },
 };

@@ -1,6 +1,3 @@
-rename Music
-search 
-open_with
 find .
 rem 
 search .local
@@ -15,7 +12,6 @@ set line_numbers
 set hostname_in_titlebar
 shell 
 shell sudo
-delete
 find h
 vim new
 !vim new
@@ -26,7 +22,29 @@ edit
 open_with hhh
 
 open_with l
-find 
 rename vector-populator.cc
-open_with 
 open_with vim
+mv config.h dwm_config.h
+re
+shell mv config.h dwm_config.h
+shell mv .zshrc zshrc
+shell mv .xinitrc xinitrc
+rename dwm_status
+find 
+rename .vimrc vimrc
+rename i.[1;5Cvim
+rename vimrc
+rename .vimrc
+shell ./firefox
+open_with 
+open_with mupdf
+open_with mupdf &
+!mv 
+mv
+shell mv jonatan-pie-198162-unsplash.jpg wall17.jpg
+shell mv justin-bisson-beck-192842-unsplash.jpg wall18.jpg
+delete
+rename
+rename 7
+rename 
+redraw_window 

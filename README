@@ -1,21 +1,9 @@
-This is a collection of config files that I use for my arch linux environment
-on my PC for things like shell(currently zsh) customization, Xorg configuration
-vim/neovim customization, etc.
+This is a collection of config files that I use for my arch linux environment on my PC for things like shell(currently zsh) customization, Xorg configuration vim/neovim customization, etc.
 
-config_files go in ~/.config or home/user/.config directory
-Holds my neovim/vim configuration (works with vim too)
+config_files go in ~/.config or home/user/.config directory. Holds ranger and vis config.
 
-dot_files go ~/ or home/user/ directory
-Contains my xinitrc for the startx/xinit script to work, my zsh shell 
-configuration, my vi configuration, and my Xresources configuration for urxvt (I don't use this anymore
-since I switched to st)
+dot_files go ~/ or home/user/ directory Contains my xinitrc for the startx/xinit script to work, my zsh shell configuration, and my vi configuration.
 
-etc_files go in /etc
-Contains my xorg.conf that makes my laptop's nvidia card work as well as
-settings for libinput to disable mouse acceleration and configure my touchpad
-to be similar to default synaptic settings present on windows
+etc_files go in /etc Contains my xorg.conf that makes my laptop's nvidia card work as well as settings for libinput to disable mouse acceleration and configure my touchpad to be similar to default synaptic settings present on windows.
 
-suckless_files go with the appropriate program's source code
-Contains various "config.h"  C source header files and patch files for the suckless envrionment; at
-the moment, it includes dwm (window manager), st (terminal emulator), and
-slstatus (status bar config).
+suckless_files go with the appropriate program's source code Contains various "config.h"  C source header files and patch files for the suckless envrionment; at the moment, it includes dwm (window manager), st (terminal emulator), and slstatus (status bar config).

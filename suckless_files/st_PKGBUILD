@@ -1,0 +1,25 @@
+pkgname=st-mygit
+pkgver=8.0
+pkgrel=1
+pkgdesc="The suckless terminal"
+arch=('x86_64')
+url="st.suckless.org"
+license=('GPL')
+#md5sums=('SKIP')
+#validpgpkeys=('SKIP')
+
+prepare() {
+  cd ..
+  make clean
+}
+
+build() {
+  cd ..
+	make
+}
+
+package() {
+  cd ..
+	make DESTDIR="$pkgdir/" install
+}
+#md5sums=('SKIP')

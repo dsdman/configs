@@ -17,7 +17,8 @@ setopt vi
 
 #prompt
 autoload -Uz colors && colors
-PROMPT="%n %~ > "
+PROMPT="%n %~ $ "
+#PROMPT="%n %~ > "
 #PROMPT="[%n@%m %~]% $ "
 #RPROMPT="%[%n]%t"
 
@@ -26,16 +27,18 @@ export CFLAGS="-march=native -Os -pipe"
 export CXXFLAGS="${CFLAGS}"
 export CPPFLAGS="${CFLAGS}"
 export PREFIX=/usr
-export SRCDIR=~/apps/src/
-export APPDIR=~/apps/
+export SRCDIR=~/apps/src
+export APPDIR=~/apps
 export VIS_PATH=~/.config/vis/
+export EDITOR=/usr/local/bin/vim
 #export EDITOR=/usr/local/bin/nvi
 #export EDITOR=/usr/bin/nvim
-export EDITOR=/usr/local/bin/vim
 #export EDITOR=/usr/local/bin/vis
 export VISUAL=${EDITOR}
 export WM=dwm
-#export WALL=/home/dylan/Documents/My\ Pictures/wallpaper/wall13.jpg
+export WALL=/home/dylan/Documents/My\ Pictures/wallpaper/wall17.jpg
+export PLAN9=/home/dylan/apps/src/plan9port
+export PATH=$PATH:$PLAN9/bin
 
 #aliases
 alias vimrc='$EDITOR ~/.config/nvim/init.vim'
@@ -44,10 +47,10 @@ alias virc='$EDITOR ~/.exrc'
 alias zshrc='$EDITOR ~/.zshrc' 
 alias xinitrc='$EDITOR ~/.xinitrc'
 alias dwmrc='$EDITOR ${SRCDIR}/dwm/config.h'
-alias cwd='printf "%q\n" "$(pwd)"'
 alias strc='$EDITOR ${SRCDIR}/st/config.h'
 alias slstatusrc='$EDITOR ${SRCDIR}/slstatus/config.h'
 alias dosboxcfg='$EDITOR ~/.dosbox/dosbox-SVN.conf'
+alias cwd='printf "%q\n" "$(pwd)"'
 function chpwd() {
   cwd > ~/.currdir
 }
@@ -87,6 +90,7 @@ alias update-zsh='source ~/.zshrc'
 #note: I use nvi from https://sites.google.com/a/bostic.com/keithbostic/vi/ or http://repo.or.cz/nvi.git instead of stock vi
 alias ex='nex'
 alias vi='nvi'
+alias nf='neofetch'
 alias ssh-cse-usc='ssh -l ddesai -p 222 L-1D39-04.cse.sc.edu'
 alias grep='grep --color=auto'
 alias ipconfig='ifconfig'
