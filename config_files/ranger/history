@@ -1,29 +1,3 @@
-find .
-rem 
-search .local
-search .config
-;
-se
-set line_numbers on
-q
-set number
-number
-set line_numbers
-set hostname_in_titlebar
-shell 
-shell sudo
-find h
-vim new
-!vim new
-vim
-command
-edit new
-edit 
-open_with hhh
-
-open_with l
-rename vector-populator.cc
-open_with vim
 mv config.h dwm_config.h
 re
 shell mv config.h dwm_config.h
@@ -43,8 +17,34 @@ open_with mupdf &
 mv
 shell mv jonatan-pie-198162-unsplash.jpg wall17.jpg
 shell mv justin-bisson-beck-192842-unsplash.jpg wall18.jpg
-delete
 rename
 rename 7
-rename 
 redraw_window 
+cd 
+rename 
+rename Documents 
+rename C++ Python Examples
+rename M210Projects
+rename mnt
+rename 2018-03-29-110218_1920x1080_scrot.png
+rename 2018-03-29-110218_1920x1080_scrot.png 
+mkdir 
+rename exam1review.ini
+rename exam1review.md
+shell touch exam2review.md
+shell cp -rfv exam1review.md exam2review.md
+open_with llhhh
+rename Digital Logic Design
+rename Digital Logic Des
+shell cd .config
+rename .Xauthorit
+bulkrename
+mkdir thing
+set viewmode=miller
+set viewmode=
+
+delete
+rename .cache
+rename .mozilla
+rename Music
+rename .fehbg

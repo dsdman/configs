@@ -6,7 +6,7 @@ set number "line numbers
 set relativenumber "line numbers
 highlight LineNr ctermfg=grey
 set ruler "ruler
-set laststatus=1 "don't waste space by showing whole statusline
+set laststatus=0 "don't waste space by showing whole statusline
 set showmode "show mode you are in
 set mouse=a "mouse 
 set noswapfile "disable swap file
@@ -15,12 +15,13 @@ set splitbelow "split below
 set encoding=utf-8 "enable unicode encoding
 
 " Setup completions and syntax
+filetype on
 filetype plugin indent on
 filetype plugin on
-filetype on
+syntax enable
+syntax on
 set completefunc=syntaxcomplete#Complete
 set omnifunc=syntaxcomplete#Complete
-syntax on
 
 " tab completion
 set complete=k "Global autocomplete
@@ -56,7 +57,7 @@ nnoremap <leader>d <C-D>
 nnoremap <leader>u <C-U>
 nnoremap <leader>a :syntax off<cr>
 nnoremap <leader>A :syntax on<cr>
-"nnoremap <Leader>f :NERDTreeToggle<Enter>
+nnoremap <Leader>f :NERDTreeToggle<Enter>
 
 " custom commands
 command Makefile execute "r ~/.local/share/nvim/templates/makefile-boilerplate"
@@ -158,3 +159,16 @@ function MyTabLine()
   endif
   return s
 endfunction"if exists("+showtabline")
+
+"Vim-Plug and Plugin setup
+call plug#begin('~/.local/share/nvim/plugged')
+Plug 'junegunn/vim-easy-align'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-clang'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+call plug#end()
+
+"Deoplete setup
+call deoplete#enable()
+let g:deoplete#sources#clang#libclang_path='/usr/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header='/usr/lib/clang'

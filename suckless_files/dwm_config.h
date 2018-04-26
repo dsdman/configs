@@ -3,9 +3,9 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
 enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always};
+static const unsigned int borderpx  = 0;        /* border pixel of windows */
+static const unsigned int snap      = 32;       /* snap pixel */
 static const int showtab            = showtab_auto;  /* Default tab bar show mode  */
 static const Bool toptab            = False;         /* False means bottom tab bar */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -28,22 +28,32 @@ static const char col_mint[]        = "#3EB489";
 static const char col_auora[]       = "#8E97B4";
 static const char col_yellow[]      = "#FFCC00";
 static const char col_yellow2[]     = "#FFA726";
-static const char col_dark_blue[]   = "#0000A0";
+static const char col_dark_blue[]   = "#00008B";
+static const char col_navyblue[]    = "#000080";
 static const char col_dark_grey[]   = "#2F4F4F";
 static const char col_brick_brown[] = "#A97770";
 static const char col_biege[]       = "#F5F5DC";
 static const char col_tan[]         = "#D2B48C";
 static const char col_purple[]      = "#6600CC";
-static const char col_orange[]      = "#DE680E";
-static const char col_tan2[]        = "#D3C58E";
+static const char col_orange[]      = "#E66606";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-  /* DARK THEME */
-	[SchemeNorm] = { col_gray3, col_gray5, col_gray2 },
-	[SchemeSel]  = { col_auora, col_gray5, col_mint },
+  /* DARK THEME 1 */
+  /*
+	  [SchemeNorm] = { col_gray3, col_gray5, col_gray2 },
+	  [SchemeSel]  = { col_auora, col_gray5, col_mint }, */
 
-  /* LIGHT THMEME */
+  /* DARK THEME 2 */
+  /*
+	 * [SchemeNorm] = { col_gray3, col_black, col_gray1 },
+	 * [SchemeSel]  = { col_mint, col_black, col_mint },*/
+
+  /* DARK THEME 3 */
+	  [SchemeNorm] = { col_gray3, col_black, col_gray1 },
+	  [SchemeSel]  = { col_yellow2, col_black, col_navyblue },
+
+  /* LIGHT THEME */
 	/*
    * [SchemeNorm] = { col_black, col_white, col_gray2 },
 	 * [SchemeSel]  = { col_black, col_crimson, col_orange },*/
@@ -78,7 +88,7 @@ static const Layout layouts[] = {
 	{ "[T]",      tile },    /* first entry is default */
 	{ "[F]",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
-	{ "[G]",      grid },
+	{ "[G]",      gaplessgrid },
 	{ "[B]",      bstack },
 	{ "[BH]",     bstackhoriz },
 };
@@ -96,12 +106,14 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0";
-static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray5, "-nf", col_gray3, "-sb", col_mint, "-sf", col_gray4, NULL };
-/* static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_gray3, "-sb", col_gray2, "-sf", col_gray4, NULL }; */
+static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_gray3, "-sb", col_yellow2, "-sf", col_black, NULL };
+/*static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray5, "-nf", col_gray3, "-sb", col_mint, "-sf", col_gray4, NULL };*/
+/*static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_gray3, "-sb", col_gray2, "-sf", col_gray4, NULL };*/
 static const char *termcmd[]  = { "st", NULL };
 static const char *browser[]  = { "firefox", NULL };
 static const char *browser2[]  = { "python", "/home/dylan/apps/src/qutebrowser/qutebrowser.py", NULL };
-static const char *editor[]  = { "st", "-e", "vim", NULL };
+static const char *browser3[]  = { "chromium", NULL };
+static const char *editor[]  = { "st", "-e", "nvim", NULL };
 static const char *sys_mon[]  = { "st", "-e", "htop", NULL };
 static const char *display_setup[]  = {"st", "-e", "python", "/home/dylan/apps/src/dual-monitor-setup/dual-monitor-setup.py", NULL };
 static const char *calc[]  = { "speedcrunch", NULL };
@@ -116,24 +128,33 @@ static const char *downvol[] = { "amixer", "-D", "pulse", "sset", "Master", "5%-
 static const char *mutevol[] = { "amixer", "-D", "pulse", "sset", "Master", "mute", NULL };
 static const char *upbacklight[] = { "xbacklight", "-inc", "10", NULL };
 static const char *downbacklight[] = { "xbacklight", "-dec", "10", NULL };
-static const char *dropdown[] = { "st", "-g", "135x17+75+0", "-t", "dropdown", NULL };
-static const char *dropdown2[] = { "st", "-g", "135x17+75+0", "-t", "bc", "-e", "bc", NULL };
+static const char *dropdown[] = { "st", "-g", "146x26+150+225", "-t", "dropdown", NULL };
+static const char *dropdown2[] = { "st", "-g", "146x26+150+225", "-t", "bc", "-e", "bc", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_Down,   moveresize,     {.v = "0x 75y 0w 0h" } },
+	{ MODKEY|ShiftMask,             XK_j,      moveresize,     {.v = "0x 75y 0w 0h" } },
 	{ MODKEY,                       XK_Up,     moveresize,     {.v = "0x -75y 0w 0h" } },
+	{ MODKEY|ShiftMask,             XK_k,      moveresize,     {.v = "0x -75y 0w 0h" } },
 	{ MODKEY,                       XK_Right,  moveresize,     {.v = "75x 0y 0w 0h" } },
+	{ MODKEY|ShiftMask,             XK_l,      moveresize,     {.v = "75x 0y 0w 0h" } },
 	{ MODKEY,                       XK_Left,   moveresize,     {.v = "-75x 0y 0w 0h" } },
+	{ MODKEY|ShiftMask,             XK_h,      moveresize,     {.v = "-75x 0y 0w 0h" } },
 	{ MODKEY|ShiftMask,             XK_Down,   moveresize,     {.v = "0x 0y 0w 75h" } },
+	{ MODKEY|ControlMask,           XK_j,      moveresize,     {.v = "0x 0y 0w 75h" } },
 	{ MODKEY|ShiftMask,             XK_Up,     moveresize,     {.v = "0x 0y 0w -75h" } },
+	{ MODKEY|ControlMask,           XK_k,      moveresize,     {.v = "0x 0y 0w -75h" } },
 	{ MODKEY|ShiftMask,             XK_Right,  moveresize,     {.v = "0x 0y 75w 0h" } },
+	{ MODKEY|ControlMask,           XK_l,      moveresize,     {.v = "0x 0y 75w 0h" } },
 	{ MODKEY|ShiftMask,             XK_Left,   moveresize,     {.v = "0x 0y -75w 0h" } },
+	{ MODKEY|ControlMask,           XK_h,      moveresize,     {.v = "0x 0y -75w 0h" } },
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
  	{ MODKEY,                       XK_y,      spawn,          {.v = editor} },
 	{ MODKEY,                       XK_e,      spawn,          {.v = filebrowser } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
-	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = browser2 } },
+	{ MODKEY|ControlMask,           XK_w,      spawn,          {.v = browser2 } },
+	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = browser3 } },
  	{ MODKEY,                       XK_c,      spawn,          {.v = calc } },
  	{ MODKEY,                       XK_p,      spawn,          {.v = display_setup } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
@@ -142,7 +163,7 @@ static Key keys[] = {
  	{ MODKEY|ShiftMask,             XK_b,      tabmode,        {-1} },
  	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = dropdown } },
  	{ MODKEY|ShiftMask,             XK_c,      spawn,          {.v = dropdown2 } },
- 	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lockscreen } },
+ 	{ MODKEY|ControlMask|ShiftMask, XK_l,      spawn,          {.v = lockscreen } },
 	{ MODKEY,                       XK_equal,  shiftview,      {.i = +1 } },
 	{ MODKEY,                       XK_minus,  shiftview,      {.i = -1 } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
