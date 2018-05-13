@@ -1,6 +1,7 @@
 " basic features of vim
 set shortmess=I "disable welcome screen
 set showmatch "highlight matching () and {} and []
+set t_Co=256 "256 color
 set background=dark
 set number "line numbers
 set relativenumber "line numbers
@@ -61,7 +62,8 @@ nnoremap <Leader>f :NERDTreeToggle<Enter>
 
 " custom commands
 command Makefile execute "r ~/.local/share/nvim/templates/makefile-boilerplate"
-command CClassHeader execute "r ~/.local/share/nvim/templates/class-header.h"
+command CClassHeader execute "r ~/.local/share/nvim/templates/header-boilerplate.h"
+command CMain execute "r ~/.local/share/nvim/templates/main-boilerplate.c"
 command HexEdit execute "%!xxd"
 command Hex2Text execute "%!xxd -r"
 
