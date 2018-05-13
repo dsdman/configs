@@ -4,8 +4,8 @@
 
 /* appearance */
 enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always};
-static const unsigned int borderpx  = 0;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int snap      = 8;       /* snap pixel */
 static const int showtab            = showtab_auto;  /* Default tab bar show mode  */
 static const Bool toptab            = False;         /* False means bottom tab bar */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -40,24 +40,20 @@ static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
   /* DARK THEME 1 */
+	  [SchemeNorm] = { col_gray3, col_black, col_gray1 },
+	  [SchemeSel]  = { col_yellow2, col_black, col_crimson },
+  /* DARK THEME 2 */
   /*
 	  [SchemeNorm] = { col_gray3, col_gray5, col_gray2 },
 	  [SchemeSel]  = { col_auora, col_gray5, col_mint }, */
-
-  /* DARK THEME 2 */
+  /* DARK THEME 3 */
   /*
 	 * [SchemeNorm] = { col_gray3, col_black, col_gray1 },
 	 * [SchemeSel]  = { col_mint, col_black, col_mint },*/
-
-  /* DARK THEME 3 */
-	  [SchemeNorm] = { col_gray3, col_black, col_gray1 },
-	  [SchemeSel]  = { col_yellow2, col_black, col_navyblue },
-
   /* LIGHT THEME */
 	/*
    * [SchemeNorm] = { col_black, col_white, col_gray2 },
 	 * [SchemeSel]  = { col_black, col_crimson, col_orange },*/
-
   /* DEFAULT THEME */
 	/* [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	 * [SchemeSel]  = { col_gray4, col_cyan,  col_cyan  }, */
@@ -79,10 +75,10 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
+#include "fibonacci.c"
 static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 2;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
-
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[T]",      tile },    /* first entry is default */
@@ -90,7 +86,9 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 	{ "[G]",      gaplessgrid },
 	{ "[B]",      bstack },
-	{ "[BH]",     bstackhoriz },
+	{ "[H]",      bstackhoriz },
+ 	{ "[X]",      spiral },
+ 	{ "[D]",      dwindle },
 };
 
 /* key definitions */
@@ -181,6 +179,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_n,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY|ShiftMask,             XK_n,      setlayout,      {.v = &layouts[5]} },
+	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[6]} },
+	{ MODKEY|ControlMask,           XK_t,      setlayout,      {.v = &layouts[7]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
