@@ -53,8 +53,11 @@ static const struct arg args[] = {
 	/* function format          argument */
 	/*{ cpu_perc, "[CPU %3s%%] ", NULL    },
 	{ ram_perc, "[RAM %2s%%] ", NULL    },*/
-  { wifi_essid, "wifi %s | ",  "wlp8s0"},
-  { vol_perc,  "vol %2s%% | ",      "/dev/mixer1"},
-  { battery_perc,  "bat %3s%% | ",      "BAT1"},
-	{ datetime, "%4s% ",       "%a %D %l:%M%p" },
+  { wifi_essid, " \U0001F50C %s ",  "wlp8s0"},
+  { vol_perc,  " \U0001F3A7 %2s%% ",      "/dev/mixer1"},
+  //{ battery_state,  " %3s% ",      "BAT1"},
+  /* { battery_state,  "%3s\U000026A1",      "BAT1"}, */
+  /* { battery_perc,  "%4s%% ",      "BAT1"}, */
+  { battery_perc,  " \U000026A1%3s%% ",      "BAT1"},
+	{ datetime, " %4s% ",       "%a %D %l:%M%p" },
 };
