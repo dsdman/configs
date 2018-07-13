@@ -14,29 +14,37 @@ static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
+static const char col_gray5[]       = "#383c4a";
 static const char col_cyan[]        = "#005577";
+static const char col_neon[]        = "#39ff14";
 static const char col_yellow[]      = "#FFCC00";
 static const char col_yellow2[]     = "#FFA726";
 static const char col_auora[]       = "#8E97B4";
 static const char col_tan[]         = "#D2B48C";
 static const char col_crimson[]     = "#DC143C";
 static const char col_mint[]        = "#3EB489";
+static const char col_blue[]        = "#506991";
 static const char col_navyblue[]    = "#000080";
 static const char col_purple[]      = "#6600CC";
 static const char col_purple2[]     = "#9e68a6";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-  /* Dark Theme 1 */
+  /* Current theme */
   [SchemeNorm] = { col_gray3, col_black, col_gray2 },
-	[SchemeSel]  = { col_auora, col_black, col_navyblue },
+	[SchemeSel]  = { col_mint, col_black, col_mint },
+
+  /* Dark Theme 1 */
+  /*
+  [SchemeNorm] = { col_gray3, col_black, col_gray2 },
+	[SchemeSel]  = { col_auora, col_black, col_navyblue },*/
   /* DARK THEME 2 */
  /* 
 	[SchemeNorm] = { col_gray3, col_black, col_gray1 },
 	[SchemeSel]  = { col_tan, col_black, col_purple2 }, */
   /* DARK THEME 3 */
  /* 
-	[SchemeNorm] = { col_gray3, col_gray5, col_gray2 },
-	[SchemeSel]  = { col_auora, col_gray5, col_mint }, */
+	[SchemeNorm] = { col_gray3, col_black, col_gray2 },
+	[SchemeSel]  = { col_auora, col_black, col_mint }, */
   /* DARK THEME 4 */
  /* 
 	[SchemeNorm] = { col_gray3, col_black, col_gray1 },
@@ -93,8 +101,9 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0";
-static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_gray3, "-sb", col_black, "-sf", col_auora, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_gray3, "-sb", col_black, "-sf", col_mint, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *sttmux[]  = { "st-tmux", NULL };
 static const char *browser[]  = { "firefox", NULL };
 static const char *browser3[]  = { "chromium", NULL };
 static const char *editor[]  = { "st", "-e", "nvim", NULL };
@@ -146,8 +155,9 @@ static const Key keys[] = {
  	{ MODKEY,                       XK_c,      spawn,          {.v = calc } },
  	{ MODKEY,                       XK_p,      spawn,          {.v = display_setup } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_Escape, spawn,          {.v = sys_mon } },
  	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = scratch } },
+ 	{ MODKEY|ControlMask|ShiftMask, XK_Return, spawn,          {.v = sttmux } },
+	{ MODKEY,                       XK_Escape, spawn,          {.v = sys_mon } },
  	{ MODKEY|ControlMask|ShiftMask, XK_l,      spawn,          {.v = lockscreen } },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = poweroff} },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = suspend} },
@@ -194,6 +204,7 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+  { MODKEY|ControlMask,           XK_q,      quit,           {1} }, 
 };
 
 /* button definitions */

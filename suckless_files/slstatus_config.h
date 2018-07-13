@@ -51,10 +51,15 @@ static const char unknown_str[] = "null";
  */
 static const struct arg args[] = {
 	/* function format          argument */
-	/*{ cpu_perc, "[CPU %3s%%] ", NULL    },
-	{ ram_perc, "[RAM %2s%%] ", NULL    },*/
-  { wifi_essid, "wifi %s | ",  "wlp8s0"},
-  { vol_perc,  "vol %2s%% | ",      "/dev/mixer1"},
-  { battery_perc,  "bat %3s%% | ",      "BAT1"},
-	{ datetime, "%4s% ",       "%a %D %l:%M%p" },
+  //{ wifi_essid, "^c#39ff14^wifi ^c#DC143C^%s ",  "wlp8s0" },
+	//{ cpu_perc, "^c#39ff14^cpu^c#DC143C^%2s%% ", NULL },
+  //{ vol_perc,  "^c#39ff14^vol^c#DC143C^%3s%% ",      "/dev/mixer1" },
+  //{ battery_perc,  "^c#39ff14^bat^c#DC143C^%4s%% ",      "BAT1" },
+	//{ datetime, "^c#39ff14^%5s%",       "%a %D ^c#DC143C^%l:%M:%S%p" },
+  { wifi_essid, "^d^wifi ^c#3eb489^%s ",  "wlp8s0" },
+	{ cpu_perc, "^d^cpu ^c#3eb489^%2s%% ", NULL },
+	{ ram_perc, "^d^ram^c#3eb489^%3s%% ", NULL },
+  { vol_perc,  "^d^vol^c#3eb489^%4s%% ",      "/dev/mixer1" },
+  { battery_perc,  "^d^bat^c#3eb489^%5s%% ",      "BAT1" },
+	{ datetime, "^d^%6s%",       "%a %D ^c#3eb489^%l:%M:%S%p" },
 };

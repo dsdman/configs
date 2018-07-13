@@ -18,17 +18,17 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -M menuselect '^n' expand-or-complete
-bindkey -M menuselect '^p' reverse-menu-complete
+bindkey '^n' expand-or-complete
+bindkey '^p' reverse-menu-complete
 
-#prompt
+# prompt
 autoload -Uz colors && colors
 PROMPT="%n %~ $ "
 #PROMPT="%n %~ > "
 #PROMPT="[%n@%m %~]% $ "
 #RPROMPT="%[%n]%t"
 
-# Various variables to set
+# Various environment variables to set
 export CFLAGS="-march=native -Os -pipe"
 export CXXFLAGS="${CFLAGS}"
 export CPPFLAGS="${CFLAGS}"
@@ -36,28 +36,34 @@ export PREFIX=/usr
 export SRCDIR=~/apps/src
 export APPDIR=~/apps
 export EDITOR=/usr/bin/nvim
+#export EDITOR=/usr/local/bin/vim
 #export EDITOR=/usr/local/bin/nvi
 #export EDITOR=/usr/local/bin/vis
 export VISUAL=${EDITOR}
 export WM=dwm
-export WALL=/home/dylan/Documents/My\ Pictures/wallpaper/wall25.jpg
-export GIT_SSH_COMMAND="ssh -i /home/dylan/.ssh/id_rsa"
+#export TERMCMD=st
+export WALL=~/Documents/My\ Pictures/wallpaper/wall27.jpg
+export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa"
 export RANGER_LOAD_DEFAULT_RC=FALSE
+export _JAVA_AWT_WM_NONREPARENTING=1
 
-#aliases
+# Save directory across multiple sessions of zsh (used with 'sd' alias below)
+alias cwd='printf "%q\n" "$(pwd)"'
+function chpwd() {
+  cwd > ~/.currdir
+}
+
+# Aliases
 alias vimrc='$EDITOR ~/.config/nvim/init.vim'
 alias visrc='$EDITOR ${VIS_PATH}visrc.lua'
 alias virc='$EDITOR ~/.exrc'
 alias zshrc='$EDITOR ~/.zshrc' 
+alias tmuxrc='$EDITOR ~/.tmux.conf' 
 alias xinitrc='$EDITOR ~/.xinitrc'
 alias dwmrc='$EDITOR ${SRCDIR}/dwm/config.h'
 alias strc='$EDITOR ${SRCDIR}/st/config.h'
 alias slstatusrc='$EDITOR ${SRCDIR}/slstatus/config.h'
 alias dosboxcfg='$EDITOR ~/.dosbox/dosbox-SVN.conf'
-alias cwd='printf "%q\n" "$(pwd)"'
-function chpwd() {
-  cwd > ~/.currdir
-}
 alias sd="cd $(cat ~/.currdir)"
 alias l='ls -la'
 alias ls='ls --color=always'
@@ -68,8 +74,12 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 alias ........='cd ../../../../../../..'
+alias .........='cd ../../../../../../../..'
+alias ..........='cd ../../../../../../../../..'
+alias ...........='cd ../../../../../../../../../..'
 alias D='cd ~/Desktop'
 alias d='cd ~/Downloads'
+alias h='~/'
 alias m='cd ~/Music'
 alias V='cd ~/Videos'
 alias c='cd ~/Documents/school/College'
@@ -84,12 +94,15 @@ alias win='cd /media/windows'
 alias winhome='cd /media/windows/Users/desai'
 alias v='${EDITOR}'
 alias e='ranger'
+alias ed='ed -v -p \*'
 alias vim='nvim'
 alias mplayer='mpv'
 alias mplayer-no-video='mpv --no-video'
+alias info2man='info --subnodes --output=info.txt'
 alias rmdir='rm -rfv'
+alias q='exit'
 alias pico='nano'
-#alias mupdf='mupdf-x11'
+alias mupdf='mupdf-x11'
 alias update-zsh='source ~/.zshrc'
 alias caps-to-esc="xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'"
 #note: I use nvi from https://sites.google.com/a/bostic.com/keithbostic/vi/ or http://repo.or.cz/nvi.git instead of stock vi
