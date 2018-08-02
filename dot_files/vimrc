@@ -31,7 +31,7 @@ set path +=** " tab-completion for everything
 set wildmenu "display all matches when completing
 
 " searching
-set hlsearch "highlight searches
+set nohlsearch " disable highlight searches
 set incsearch "enable increment search
 
 " tabs and formatting
@@ -44,24 +44,37 @@ set backspace=indent,eol,start "make backspace complete
 set encoding=utf-8 "Use utf-8 instead of ASCII
 
 " leader bindings
-let mapleader = "-"
+let mapleader = " "
 nnoremap <leader>w :w<cr>
-nnoremap <leader>n :nohl<cr>
+nnoremap <leader>W :w
+nnoremap <leader>q :q!<cr>
+nnoremap <leader>Q :q
+nnoremap <leader>n :set hlsearch!<cr>
 nnoremap <leader>g <C-G>
 nnoremap <leader>r <C-R>
+nnoremap <leader>R :Shell 
 nnoremap <leader>te :tabedit 
 nnoremap <leader>v :vsplit 
 nnoremap <leader>h :split 
 nnoremap <leader>s <C-W>w
-nnoremap <leader>q :q
 nnoremap <leader>d <C-D>
 nnoremap <leader>u <C-U>
 nnoremap <leader>a :syntax off<cr>
 nnoremap <leader>A :syntax on<cr>
-nnoremap <Leader>f :NERDTreeToggle<Enter>
+"nnoremap <Leader>f :NERDTreeToggle<Enter>
+
+" Move around splits and tabs easier
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-tab> gt
+nnoremap <c-shift-tab> gT
+
 
 " custom commands
 command Makefile execute "r ~/.local/share/nvim/templates/makefile-boilerplate"
+command OSPMakefile execute "r ~/.local/share/nvim/templates/makefile-OSP"
 command CClassHeader execute "r ~/.local/share/nvim/templates/header-boilerplate.h"
 command CMain execute "r ~/.local/share/nvim/templates/main-boilerplate.c"
 command HexEdit execute "%!xxd"
@@ -87,6 +100,41 @@ function! ToggleColorColumn()
   else                  | set colorcolumn=80
   endif
 endfunction
+
+" Function for running shell commands in scratch vim window
+function! s:ExecuteInShell(command)
+  let command = join(map(split(a:command), 'expand(v:val)'))
+  let winnr = bufwinnr('^' . command . '$')
+  silent! execute  winnr < 0 ? 'botright new ' . fnameescape(command) : winnr . 'wincmd w'
+  setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
+  echo 'Execute ' . command . '...'
+  silent! execute 'silent %!'. command
+  silent! execute 'resize ' . line('$')
+  silent! redraw
+  silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+  silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
+  echo 'Shell command ' . command . ' executed.'
+endfunction
+command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
+"command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+"function! s:RunShellCommand(cmdline)
+"  echo a:cmdline
+"  let expanded_cmdline = a:cmdline
+"  for part in split(a:cmdline, ' ')
+"     if part[0] =~ '\v[%#<]'
+"        let expanded_part = fnameescape(expand(part))
+"        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+"     endif
+"  endfor
+"  botright new
+"  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+"  call setline(1, 'You entered:    ' . a:cmdline)
+"  call setline(2, 'Expanded Form:  ' .expanded_cmdline)
+"  call setline(3,substitute(getline(2),'.','=','g'))
+"  execute '$read !'. expanded_cmdline
+"  setlocal nomodifiable
+"  1
+"endfunction
 
 "Press '\' to toggle highlight column
 :nnoremap \ :call ToggleColorColumn()!<CR>
@@ -161,16 +209,3 @@ function MyTabLine()
   endif
   return s
 endfunction"if exists("+showtabline")
-
-"Vim-Plug and Plugin setup
-call plug#begin('~/.local/share/nvim/plugged')
-Plug 'junegunn/vim-easy-align'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-clang'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-call plug#end()
-
-"Deoplete setup
-call deoplete#enable()
-let g:deoplete#sources#clang#libclang_path='/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header='/usr/lib/clang'

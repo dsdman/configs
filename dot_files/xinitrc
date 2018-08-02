@@ -7,14 +7,14 @@ xrandr --dpi 96
 xset s off
 xset s noblank
 
-#reassign right alt to windows and keep it out of mod1 group
+# reassign right alt to windows and keep it out of mod1 group
 xmodmap -e "keycode 108 = Super_L"
 xmodmap -e "remove mod1 = Super_L"
 
-#also reassign caps lock to escape
+# also reassign caps lock to escape
 xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 
-#switch statement for starting desktop
+# switch statement for starting desktop
 case $WM in
 dwm-compositing)
   compton &

@@ -42,7 +42,7 @@ export EDITOR=/usr/bin/nvim
 export VISUAL=${EDITOR}
 export WM=dwm
 #export TERMCMD=st
-export WALL=~/Documents/My\ Pictures/wallpaper/wall27.jpg
+export WALL=~/Documents/My\ Pictures/wallpaper/wall17.jpg
 export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa"
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -95,7 +95,7 @@ alias winhome='cd /media/windows/Users/desai'
 alias v='${EDITOR}'
 alias e='ranger'
 alias ed='ed -v -p \*'
-alias vim='nvim'
+#alias vim='nvim'
 alias mplayer='mpv'
 alias mplayer-no-video='mpv --no-video'
 alias info2man='info --subnodes --output=info.txt'
