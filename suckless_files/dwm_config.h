@@ -31,7 +31,7 @@ static const char *colors[][3]      = {
 	/*               fg         bg         border   */
   /* Current theme */
   [SchemeNorm] = { col_gray3, col_black, col_gray2 },
-	[SchemeSel]  = { col_mint, col_black, col_mint },
+	[SchemeSel]  = { col_purple2, col_black, col_purple2 },
 
   /* Dark Theme 1 */
   /*
@@ -40,15 +40,15 @@ static const char *colors[][3]      = {
   /* DARK THEME 2 */
  /* 
 	[SchemeNorm] = { col_gray3, col_black, col_gray1 },
-	[SchemeSel]  = { col_tan, col_black, col_purple2 }, */
+	[SchemeSel]  = { col_tan, col_black, col_purple22 }, */
   /* DARK THEME 3 */
  /* 
 	[SchemeNorm] = { col_gray3, col_black, col_gray2 },
-	[SchemeSel]  = { col_auora, col_black, col_mint }, */
+	[SchemeSel]  = { col_auora, col_black, col_purple2 }, */
   /* DARK THEME 4 */
  /* 
 	[SchemeNorm] = { col_gray3, col_black, col_gray1 },
-	[SchemeSel]  = { col_mint, col_black, col_mint }, */
+	[SchemeSel]  = { col_purple2, col_black, col_purple2 }, */
   /* LIGHT THEME 1 */
 /*	
   [SchemeNorm] = { col_black, col_white, col_gray2 },
@@ -76,7 +76,7 @@ static const Rule rules[] = {
 /* layout(s) */
 #include "gaplessgrid.c"
 static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 2;    /* number of clients in master area */
+static const int nmaster     = 3;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -101,27 +101,25 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0";
-static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_gray3, "-sb", col_black, "-sf", col_mint, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-b", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_gray3, "-sb", col_black, "-sf", col_purple2, NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *sttmux[]  = { "st-tmux", NULL };
-static const char *browser[]  = { "firefox", NULL };
-static const char *browser3[]  = { "chromium", NULL };
+static const char *browser[]  = { "chromium", NULL };
+static const char *browser2[]  = { "firefox", NULL };
 static const char *editor[]  = { "st", "-e", "nvim", NULL };
 static const char *sys_mon[]  = { "st", "-e", "htop", NULL };
-static const char *display_setup[]  = { "st", "-e", "python", "/home/dylan/apps/src/dual-monitor-setup/dual-monitor-setup.py", NULL };
 static const char *display_setup2[]  = { "/home/dylan/apps/src/dual-monitor-setup/dual-monitor-setup.sh", NULL };
 static const char *calc[]  = { "speedcrunch", NULL };
-static const char *lockscreen[]  = { "slock", NULL };
 static const char *filebrowser[]  = { "st", "-e", "ranger", NULL };
 static const char *screenshot[]  = { "scrot",  NULL };
-static const char *poweroff[] = { "systemctl", "poweroff", NULL};
-static const char *suspend[] = { "systemctl", "suspend", NULL};
-static const char *reboot[] = { "systemctl", "reboot", NULL};
+static const char *lockscreen[]  = { "sudo", "slock", NULL };
+static const char *poweroff[] = { "sudo", "poweroff", NULL};
+static const char *suspend[] = { "sudo", "s2ram", NULL};
+static const char *reboot[] = { "sudo", "reboot", NULL};
 static const char *upvol[]   = { "amixer", "-D", "pulse", "sset", "Master", "5%+", NULL };
 static const char *downvol[] = { "amixer", "-D", "pulse", "sset", "Master", "5%-", NULL };
 static const char *mutevol[] = { "amixer", "-D", "pulse", "sset", "Master", "mute", NULL };
-static const char *upbacklight[] = { "xbacklight", "-inc", "10", NULL };
-static const char *downbacklight[] = { "xbacklight", "-dec", "10", NULL };
+static const char *upbacklight[] = { "sudo", "xbacklight", "-inc", "10", NULL };
+static const char *downbacklight[] = { "sudo", "xbacklight", "-dec", "10", NULL };
 static const char *scratch[] = { "st", "-g", "146x26+150+225", "-t", "scratch", NULL };
 #include "push.c"
 #include "moveresize.c"
@@ -152,12 +150,11 @@ static const Key keys[] = {
  	{ MODKEY,                       XK_y,      spawn,          {.v = editor } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = filebrowser } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browser } },
-	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = browser3 } },
+	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = browser2 } },
  	{ MODKEY,                       XK_c,      spawn,          {.v = calc } },
  	{ MODKEY,                       XK_p,      spawn,          {.v = display_setup2 } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
  	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = scratch } },
- 	{ MODKEY|ControlMask|ShiftMask, XK_Return, spawn,          {.v = sttmux } },
 	{ MODKEY,                       XK_Escape, spawn,          {.v = sys_mon } },
  	{ MODKEY|ControlMask|ShiftMask, XK_l,      spawn,          {.v = lockscreen } },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = poweroff} },
@@ -165,7 +162,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          {.v = reboot} },
  	{ 0,              XF86XK_AudioLowerVolume, spawn,          {.v = downvol} },
  	{ 0,              XF86XK_AudioRaiseVolume, spawn,          {.v = upvol} },
- 	{ 0,                            XK_F12,    spawn,          {.v = screenshot} },
+ 	{ 0,              XK_F12,                  spawn,          {.v = screenshot} },
  	{ 0,              XF86XK_AudioMute,        spawn,          {.v = mutevol} },
  	{ 0,              XF86XK_MonBrightnessUp,  spawn,          {.v = upbacklight} },
  	{ 0,            XF86XK_MonBrightnessDown,  spawn,          {.v = downbacklight} },

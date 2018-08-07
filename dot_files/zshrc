@@ -5,11 +5,12 @@ SAVEHIST=1000
 setopt correct
 setopt appendhistory autocd beep extendedglob nomatch
 bindkey -e
+autoload -U compinit promptinit
 zstyle :compinstall filename '/home/dylan/.zshrc'
-autoload -U compinit && compinit
+compinit
+promptinit; prompt gentoo
 zmodload zsh/complist
 zstyle ':completion:*' menu select
-compinit
 zstyle ':completion:*' list-colors 'di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
 # enable vi mode (and vi keys with menu completion)
@@ -22,16 +23,17 @@ bindkey '^n' expand-or-complete
 bindkey '^p' reverse-menu-complete
 
 # prompt
-autoload -Uz colors && colors
+#autoload -Uz colors && colors
 PROMPT="%n %~ $ "
 #PROMPT="%n %~ > "
 #PROMPT="[%n@%m %~]% $ "
 #RPROMPT="%[%n]%t"
+#prompt gentoo
 
 # Various environment variables to set
-export CFLAGS="-march=native -Os -pipe"
-export CXXFLAGS="${CFLAGS}"
-export CPPFLAGS="${CFLAGS}"
+# export CFLAGS="-march=haswell -O2 -pipe"
+# export CXXFLAGS="${CFLAGS}"
+# export CPPFLAGS="${CFLAGS}"
 export PREFIX=/usr
 export SRCDIR=~/apps/src
 export APPDIR=~/apps
@@ -42,7 +44,7 @@ export EDITOR=/usr/bin/nvim
 export VISUAL=${EDITOR}
 export WM=dwm
 #export TERMCMD=st
-export WALL=~/Documents/My\ Pictures/wallpaper/wall17.jpg
+export WALL=~/Documents/My\ Pictures/wallpaper/wall25.jpg
 export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa"
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -64,6 +66,7 @@ alias dwmrc='$EDITOR ${SRCDIR}/dwm/config.h'
 alias strc='$EDITOR ${SRCDIR}/st/config.h'
 alias slstatusrc='$EDITOR ${SRCDIR}/slstatus/config.h'
 alias dosboxcfg='$EDITOR ~/.dosbox/dosbox-SVN.conf'
+alias portagecfg='sudoedit /etc/portage/make.conf'
 alias sd="cd $(cat ~/.currdir)"
 alias l='ls -la'
 alias ls='ls --color=always'

@@ -17,18 +17,17 @@ xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 # switch statement for starting desktop
 case $WM in
 dwm-compositing)
-  compton &
-  slstatus &
+  slstatus > /dev/null 2>&1 &
   feh --bg-fill $WALL
   exec dwm
   ;;
 dwm)
-  slstatus &
+  slstatus > /dev/null 2>&1 &
   feh --bg-fill $WALL 
   exec dwm
   ;;
 *)
-  slstatus &
+  slstatus > /dev/null 2>&1 &
   feh --bg-fill $WALL
   exec dwm
   ;;
