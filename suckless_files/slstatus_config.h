@@ -51,15 +51,11 @@ static const char unknown_str[] = "null";
  */
 static const struct arg args[] = {
 	/* function format          argument */
-  //{ wifi_essid, "^c#39ff14^wifi ^c#DC143C^%s ",  "wlp8s0" },
-	//{ cpu_perc, "^c#39ff14^cpu^c#DC143C^%2s%% ", NULL },
-  //{ vol_perc,  "^c#39ff14^vol^c#DC143C^%3s%% ",      "/dev/mixer1" },
-  //{ battery_perc,  "^c#39ff14^bat^c#DC143C^%4s%% ",      "BAT1" },
-	//{ datetime, "^c#39ff14^%5s%",       "%a %D ^c#DC143C^%l:%M:%S%p" },
-  { run_command, "^d^wifi ^c#9e68a6^%s ",  "wpa_cli status | grep \"^ssid\" | sed s/ssid=//g" },
-	{ cpu_perc, "^d^cpu ^c#9e68a6^%2s%% ", NULL },
-	{ ram_perc, "^d^ram^c#9e68a6^%3s%% ", NULL },
-  { vol_perc,  "^d^vol^c#9e68a6^%4s%% ",      "/dev/mixer1" },
-  { battery_perc,  "^d^bat^c#9e68a6^%5s%% ",      "BAT1" },
-	{ datetime, "^d^%6s%",       "%a %D ^c#9e68a6^%l:%M:%S%p" },
+	{ ipv4, "^c#3cb371^%s ", "wlp8s0" },
+  { run_command, "^d^wifi ^c#3cb371^%2s ",  "wpa_cli status | grep \"^ssid\" | sed s/ssid=//g" },
+	{ cpu_perc, "^d^cpu ^c#ff0000^%3s%% ", NULL },
+	{ ram_perc, "^d^ram^c#ff0000^%4s%% ", NULL },
+  { battery_perc,  "^d^bat^c#ff0000^%5s%% ",      "BAT1" },
+  { vol_perc,  "^d^vol^c#FDB813^%6s%% ",      "/dev/audio1" },
+	{ datetime, "^d^%7s%",       "%a %D ^c#FDB813^%l:%M:%S%p" },
 };
