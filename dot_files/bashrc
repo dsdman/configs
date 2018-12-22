@@ -1,0 +1,54 @@
+if [[ $- != *i* ]] ; then
+	return
+fi
+
+# show working directory/user/hostname in window title
+PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
+
+# vi mode and prompt setup
+set -o vi
+PS1="\[\033[0;38;5;214m\]\u\[\033[0;38;5;129m\] \w \[\033[0;38;5;02m\]$\[\033[00m\] "
+
+# Various environment variables to set
+export SRCDIR=~/apps/src
+export APPDIR=~/apps
+export EDITOR=/usr/bin/nvim
+export VISUAL=${EDITOR}
+export WM=dwm-compositing
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# aliases
+alias l='ls -la'
+alias v='${EDITOR}'
+alias e='ranger'
+alias ed='ed -v -p \*'
+alias feh='feh --scale-down'
+alias st-tabbed='tabbed -c -r 2 st -w '' -e'
+alias mplayer='mpv'
+alias mplayer-no-video='mpv --no-video'
+alias vimrc='$EDITOR ~/.config/nvim/init.vim'
+alias bashrc='$EDITOR ~/.bashrc' 
+alias xinitrc='$EDITOR ~/.xinitrc'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias .......='cd ../../../../../..'
+alias ........='cd ../../../../../../..'
+alias D='cd ~/Desktop'
+alias d='cd ~/Downloads'
+alias h='cd ~/'
+alias m='cd ~/Music'
+alias V='cd ~/Videos'
+alias c='cd ~/Documents/school/College'
+alias a='cd ${APPDIR}'
+alias ssh-cse-usc='ssh -l ddesai -p 222 L-1D43-04.cse.sc.edu'
+alias p='cd ~/Documents/My\ Pictures'
+alias s='cd ${SRCDIR}'
+alias g='cd /media/windows/games'
+alias doc='cd ~/Documents'
+alias win='cd /media/windows'
+alias winhome='cd /media/windows/Users/desai'
+alias configure-32bit='CC="cc -m32" CXX="c++ -m32" ./configure --host=i686-pc-linux-gnu'
+alias info2man='info --subnodes --output=info.txt'
