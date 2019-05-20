@@ -1,12 +1,13 @@
 " basic features of vim
 set shortmess=I "disable welcome screen
 set showmatch "highlight matching () and {} and []
-colo desert
+colo default
 set t_Co=256 "256 color
 set number "line numbers
+set relativenumber
 set background=dark
 set ruler "ruler
-set laststatus=0 "don't waste space by showing whole statusline
+set laststatus=2 "don't waste space by showing whole statusline
 set showmode "show mode you are in
 set mouse=a "mouse 
 set noswapfile "disable swap file
@@ -16,9 +17,6 @@ set encoding=utf-8 "enable unicode encoding
 filetype on
 filetype plugin indent on
 filetype plugin on
-syntax enable
-syntax on
-highlight LineNr ctermfg=230
 set completefunc=syntaxcomplete#Complete
 set omnifunc=syntaxcomplete#Complete
 
@@ -41,6 +39,7 @@ set expandtab "use spaces
 set backspace=indent,eol,start "make backspace complete
 
 " leader bindings
+set <F1>=<C-v><F1>
 let mapleader = " "
 nnoremap <leader>w :w<cr>
 nnoremap <leader>W :w
@@ -58,6 +57,7 @@ nnoremap <leader>d <C-D>
 nnoremap <leader>u <C-U>
 nnoremap <leader>a :syntax off<cr>
 nnoremap <leader>A :syntax on<cr>
+nnoremap <F1> :!st &> /dev/null &<cr><cr>
 "nnoremap <Leader>f :NERDTreeToggle<Enter>
 
 " Move around splits and tabs easier
@@ -86,17 +86,6 @@ hi CursorLineNR cterm=bold
 augroup CLNRSet
     autocmd! ColorScheme * hi CursorLineNR cterm=bold
 augroup END
-
-"Function for highlighting column
-function! ToggleColorColumn()
-  if &colorcolumn != '' | set colorcolumn&
-  else                  | set colorcolumn=80
-  endif
-endfunction
-
-"Press '\' to toggle highlight column
-:nnoremap \ :call ToggleColorColumn()!<CR>
-set cursorline
 
 "tabline/statusbar configuration
 set showtabline=1  " 0, 1 or 2; when to use a tab pages line

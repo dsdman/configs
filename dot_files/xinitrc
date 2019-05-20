@@ -12,21 +12,42 @@ xmodmap -e "keycode 108 = Super_L"
 xmodmap -e "remove mod1 = Super_L"
 
 # set wallpaper
-WALL=/home/dylan/Pictures/wallpaper/wall16.jpg
+WALL=/home/dylan/Pictures/wallpaper/wall32.jpg
+
+# compton command
+COMPTONCMD="compton &"
+
+# feh command
+FEHCMD='feh --bg-fill $WALL'
+
+# status command
+STATUSCMD='apps/bin/status.sh &>/dev/null &'
 
 # also reassign caps lock to escape
 xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 
 # switch statement for starting desktop
 case $WM in
-dwm)
-  slstatus > /dev/null 2>&1 &
-  feh --bg-fill $WALL 
+dwm-compositing)
+  #slstatus > /dev/null 2>&1 &
+  eval $STATUSCMD
+  eval $FEHCMD
+  eval $COMPTONCMD
   exec dwm
   ;;
+dwm)
+  #slstatus > /dev/null 2>&1 &
+  eval $STATUSCMD
+  eval $FEHCMD
+  exec dwm
+  ;;
+bspwm)
+  #feh --bg-fill $WALL
+  eval $FEHCMD
+  eval $COMPTONCMD
+  exec bspwm
+  ;;
 *)
-  slstatus > /dev/null 2>&1 &
-  feh --bg-fill $WALL
   exec dwm
   ;;
 esac

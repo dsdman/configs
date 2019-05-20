@@ -2,33 +2,57 @@ if [[ $- != *i* ]] ; then
 	return
 fi
 
-# show working directory/user/hostname in window title
-PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
-
 # vi mode and prompt setup
 set -o vi
-PS1="\[\033[0;38;5;214m\]\u\[\033[0;38;5;129m\] \w \[\033[0;38;5;02m\]$\[\033[00m\] "
+#PS1="\[\033[0;38;5;011m\]\033[1m\u\[\033[0;38;5;002m\] \033[1m\w \[\033[0;38;5;008m\]\033[1m$\[\033[00m\] "
+#PS1="\u \w \$ "
+PS1="\u \$ "
+ #Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+if [ $TERM != "linux" ] ; then
+  [ -n "$PS1" ] && \
+      [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+          eval "$("$BASE16_SHELL/profile_helper.sh")"
+  eval "$(dircolors ~/.dircolors)";
+fi
 
 # Various environment variables to set
 export SRCDIR=~/apps/src
 export APPDIR=~/apps
+export BROWSER=/usr/bin/chromium
 export EDITOR=/usr/bin/nvim
 export VISUAL=${EDITOR}
-export WM=dwm-compositing
+export WM=dwm
+export FM=pcmanfm-qt
 export _JAVA_AWT_WM_NONREPARENTING=1
+export PATH=$PATH:~/apps/bin/
+
+# nnn environment variables
+export NNN_OPENER=xdg-open
+export NNN_NO_AUTOSELECT=1
+export NNN_USE_EDITOR=1
+export NNN_TMPFILE="/tmp/nnn"
 
 # aliases
+alias pd='pushd'
+alias dp='popd'
+alias dirs='dirs -v'
 alias l='ls -la'
 alias v='${EDITOR}'
-alias e='ranger'
 alias ed='ed -v -p \*'
+alias vim='${EDITOR}'
 alias feh='feh --scale-down'
 alias st-tabbed='tabbed -c -r 2 st -w '' -e'
 alias mplayer='mpv'
 alias mplayer-no-video='mpv --no-video'
 alias vimrc='$EDITOR ~/.config/nvim/init.vim'
+alias capstoesc="xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'"
 alias bashrc='$EDITOR ~/.bashrc' 
+alias dwmcfg='$EDITOR ~/apps/src/dwm-mygit/config.h' 
 alias xinitrc='$EDITOR ~/.xinitrc'
+alias keywords='sudoedit /etc/portage/package.keywords'
+alias useflags='sudoedit /etc/portage/package.use/package.use'
+alias masked='sudoedit /etc/portage/package.mask/package.mask'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -36,19 +60,30 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 alias ........='cd ../../../../../../..'
-alias D='cd ~/Desktop'
-alias d='cd ~/Downloads'
-alias h='cd ~/'
-alias m='cd ~/Music'
-alias V='cd ~/Videos'
-alias c='cd ~/Documents/school/College'
-alias a='cd ${APPDIR}'
-alias ssh-cse-usc='ssh -l ddesai -p 222 L-1D43-04.cse.sc.edu'
-alias p='cd ~/Documents/My\ Pictures'
-alias s='cd ${SRCDIR}'
-alias g='cd /media/windows/games'
-alias doc='cd ~/Documents'
-alias win='cd /media/windows'
-alias winhome='cd /media/windows/Users/desai'
+alias gD='pushd ~/Desktop'
+alias gd='pushd ~/Downloads'
+alias gh='pushd ~/'
+alias gm='pushd ~/Music'
+alias gV='pushd ~/Videos'
+alias gc='pushd ~/Documents/school/College'
+alias ga='pushd ${APPDIR}'
+alias gp='pushd ~/Documents/My\ Pictures'
+alias gs='pushd ${SRCDIR}'
+alias gg='pushd /media/windows/games'
+alias gdoc='pushd ~/Documents'
+alias gwin='pushd /media/windows'
+alias gwinhome='pushd /media/windows/Users/desai'
 alias configure-32bit='CC="cc -m32" CXX="c++ -m32" ./configure --host=i686-pc-linux-gnu'
 alias info2man='info --subnodes --output=info.txt'
+alias ssh-cse-usc='ssh -l ddesai -p 222 L-1D43-04.cse.sc.edu'
+alias sd='(st) & &>/dev/null'
+alias startx='startx &> /dev/null'
+
+# macros
+bind '"\eOP": "st  > /dev/null 2>&1 \n"'
+bind '"\eOQ": "ls -l \n"'
+bind '"\eOR": "ls \n"'
+bind '"\eOS": "ls -la \n"'
+bind '"\eOS": "ls -la \n"'
+bind '"\e[15~": "pwd \n"'
+bind '"\e[17~": "dirs \n"'
