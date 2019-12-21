@@ -7,6 +7,7 @@ set -o vi
 #PS1="\[\033[0;38;5;011m\]\033[1m\u\[\033[0;38;5;002m\] \033[1m\w \[\033[0;38;5;008m\]\033[1m$\[\033[00m\] "
 #PS1="\u \w \$ "
 PS1="\u \$ "
+
  #Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
 if [ $TERM != "linux" ] ; then
@@ -27,12 +28,6 @@ export FM=pcmanfm-qt
 export _JAVA_AWT_WM_NONREPARENTING=1
 export PATH=$PATH:~/apps/bin/
 
-# nnn environment variables
-export NNN_OPENER=xdg-open
-export NNN_NO_AUTOSELECT=1
-export NNN_USE_EDITOR=1
-export NNN_TMPFILE="/tmp/nnn"
-
 # aliases
 alias pd='pushd'
 alias dp='popd'
@@ -48,10 +43,10 @@ alias mplayer-no-video='mpv --no-video'
 alias vimrc='$EDITOR ~/.config/nvim/init.vim'
 alias capstoesc="xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'"
 alias bashrc='$EDITOR ~/.bashrc' 
-alias dwmcfg='$EDITOR ~/apps/src/dwm-mygit/config.h' 
+alias dwmsrc='cd ~/apps/src/dwm-mygit && $EDITOR config.h' 
 alias xinitrc='$EDITOR ~/.xinitrc'
 alias keywords='sudoedit /etc/portage/package.keywords'
-alias useflags='sudoedit /etc/portage/package.use/package.use'
+alias useflags='sudoedit /etc/portage/package.use'
 alias masked='sudoedit /etc/portage/package.mask/package.mask'
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -63,7 +58,7 @@ alias ........='cd ../../../../../../..'
 alias gD='pushd ~/Desktop'
 alias gd='pushd ~/Downloads'
 alias gh='pushd ~/'
-alias gm='pushd ~/Music'
+alias gm='pushd ~/music'
 alias gV='pushd ~/Videos'
 alias gc='pushd ~/Documents/school/College'
 alias ga='pushd ${APPDIR}'
@@ -72,15 +67,17 @@ alias gs='pushd ${SRCDIR}'
 alias gg='pushd /media/windows/games'
 alias gdoc='pushd ~/Documents'
 alias gwin='pushd /media/windows'
+alias gbin='pushd /home/dylan/apps/bin'
 alias gwinhome='pushd /media/windows/Users/desai'
+alias gcap='pushd /media/windows/Users/dsd123/Documents/school/College/Captone\ Computing\ Project/Project/C2webapp'
+alias gsteam='pushd /media/windows/games/PC/Steam/steamapps/common/'
 alias configure-32bit='CC="cc -m32" CXX="c++ -m32" ./configure --host=i686-pc-linux-gnu'
 alias info2man='info --subnodes --output=info.txt'
 alias ssh-cse-usc='ssh -l ddesai -p 222 L-1D43-04.cse.sc.edu'
-alias sd='(st) & &>/dev/null'
-alias startx='startx &> /dev/null'
+alias startx='startx > /dev/null 2>&1'
 
 # macros
-bind '"\eOP": "st  > /dev/null 2>&1 \n"'
+bind '"\eOP": "st  > /dev/null 2>&1 & \n"'
 bind '"\eOQ": "ls -l \n"'
 bind '"\eOR": "ls \n"'
 bind '"\eOS": "ls -la \n"'
