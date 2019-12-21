@@ -1,0 +1,9 @@
+user_interface = alternative
+cyclic_scrolling = yes
+mpd_crossfade_time = 5
+visualizer_fifo_path = "~/.mpd/visualizer.fifo"
+visualizer_output_name = "my_fifo"
+visualizer_sync_interval = "30" 
+visualizer_in_stereo = "yes"
+visualizer_type = "wave"
+visualizer_look = "+|"
