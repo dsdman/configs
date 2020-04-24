@@ -1,0 +1,21 @@
+# /etc/skel/.bash_profile
+
+# This file is sourced by bash for login shells.  The following line
+# runs your .bashrc and is recommended by the bash info pages.
+if [[ -f ~/.bashrc ]] ; then
+	. ~/.bashrc
+fi
+
+# MPD daemon start (if no other user instance exists)
+killall mpd ; mpd
+
+# environment variables
+export SRCDIR=~/apps/src
+export APPDIR=~/apps
+export BROWSER=/usr/bin/chromium
+export EDITOR=/usr/bin/nvim
+export VISUAL=${EDITOR}
+export WM=dwm
+export FM=pcmanfm-qt
+export _JAVA_AWT_WM_NONREPARENTING=1
+export PATH=$PATH:~/apps/bin/:~/.local/bin/

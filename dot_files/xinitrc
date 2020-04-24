@@ -1,38 +1,37 @@
-# use the nvidia card, not the intel one
-xrandr --setprovideroutputsource modesetting NVIDIA-0
+# Display (set second one to primary if connected) setup
 xrandr --auto
 xrandr --dpi 96
+displays=$(xrandr | grep -w "connected" | awk '{print $1}' | wc -l)
+[ "$displays" = "2" ] && xrandr --output eDP-1 --off --output HDMI-1 --auto --primary
+#[ "$displays" = "2" ] && 	xrandr --output HDMI-1 --primary --auto --output eDP-1 --auto --right-of "${primary}"
+
 
 # disable screen blanking
+setterm -powerdown 0
 xset s off
 xset s noblank
+xset -dpms
+
+# gnome keyring
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK
 
 # reassign right alt to windows and keep it out of mod1 group
 xmodmap -e "keycode 108 = Super_L"
 xmodmap -e "remove mod1 = Super_L"
 
-# set wallpaper
-WALL=/home/dylan/Pictures/wallpaper/wall32.jpg
-
-# compton command
-COMPTONCMD="compton &"
-
-# feh command
-FEHCMD='feh --bg-fill $WALL'
-
-# status command
-STATUSCMD='apps/bin/status.sh &>/dev/null &'
-
-# also reassign caps lock to escape
-xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+# commands for wallpaper, compositor, and status
+WALL=/home/dylan/Pictures/wallpaper/wall44.jpg
+FEHCMD='feh --bg-fill $WALL &'
+COMPTONCMD="compton --backend glx --vsync opengl &"
+STATUSCMD='status.sh > /dev/null 2>&1 &'
 
 # switch statement for starting desktop
 case $WM in
 dwm-compositing)
-  #slstatus > /dev/null 2>&1 &
-  eval $STATUSCMD
-  eval $FEHCMD
   eval $COMPTONCMD
+  eval $FEHCMD
+  eval $STATUSCMD
   exec dwm
   ;;
 dwm)

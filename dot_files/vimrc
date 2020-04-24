@@ -1,12 +1,14 @@
 " basic features of vim
+colo elflord
 set shortmess=I "disable welcome screen
 set showmatch "highlight matching () and {} and []
 set t_Co=256 "256 color
+let base16colorspace=256
 set number "line numbers
 set relativenumber
 set ruler "ruler
 set laststatus=2 "don't waste space by showing whole statusline
-set showmode "show mode you are in
+set noshowmode "don't show mode you are in (statusline does it)
 set mouse=a "mouse 
 set noswapfile "disable swap file
 set splitright "split right
@@ -34,6 +36,7 @@ set shiftwidth=2 "indent 2
 set autoindent "Automatically indent
 set softtabstop=2 "makes it work for backspace and delete
 set expandtab "use spaces 
+set smarttab
 set backspace=indent,eol,start "make backspace complete
 
 " leader bindings
@@ -43,10 +46,9 @@ nnoremap <leader>w :w<cr>
 nnoremap <leader>W :w
 nnoremap <leader>q :q!<cr>
 nnoremap <leader>Q :q
-nnoremap <leader>n :set hlsearch!<cr>
+nnoremap <leader>/ :set hlsearch!<cr>
 nnoremap <leader>g <C-G>
 nnoremap <leader>r <C-R>
-nnoremap <leader>R :Shell 
 nnoremap <leader>te :tabedit 
 nnoremap <leader>v :vsplit 
 nnoremap <leader>h :split 
@@ -56,7 +58,6 @@ nnoremap <leader>u <C-U>
 nnoremap <leader>a :syntax off<cr>
 nnoremap <leader>A :syntax on<cr>
 nnoremap <F1> :!st > /dev/null 2>&1 &<cr><cr>
-"nnoremap <Leader>f :NERDTreeToggle<Enter>
 
 " Move around splits and tabs easier
 nnoremap <c-j> <c-w>j
@@ -66,12 +67,6 @@ nnoremap <c-l> <c-w>l
 nnoremap <c-tab> gt
 nnoremap <c-shift-tab> gT
 
-" highlight line number
-hi clear CursorLine
-augroup CLClear
-    autocmd! ColorScheme * hi clear CursorLine
-augroup END
-hi CursorLineNR cterm=bold ctermfg=255
 
 " custom commands
 command HexEdit execute "%!xxd"
@@ -79,20 +74,15 @@ command Hex2Text execute "%!xxd -r"
 
 " Plugin stuff
 call plug#begin('~/.config/nvim/plugged')
-Plug 'https://github.com/vim-airline/vim-airline'
-Plug 'https://github.com/vim-airline/vim-airline-themes'
-Plug 'https://github.com/mkitt/tabline.vim'
 Plug 'https://github.com/ternjs/tern_for_vim'
 Plug 'https://github.com/Shougo/deoplete.nvim'
 Plug 'https://github.com/carlitux/deoplete-ternjs'
-Plug 'https://github.com/chriskempson/base16-vim'
+Plug 'chriskempson/base16-vim'
+Plug 'itchyny/lightline.vim'
 call plug#end()
 
-" configure airline and tabline
-let g:airline_theme='base16_default'
-hi TabLine      ctermfg=255  ctermbg=8     cterm=NONE
-hi TabLineFill  ctermfg=255  ctermbg=8     cterm=NONE
-hi TabLineSel   ctermfg=0    ctermbg=10    cterm=NONE
+" highlight line number
+hi CursorLineNR ctermfg=256 cterm=bold
 
 " deoplete config
 let g:deoplete#enable_at_startup = 1
@@ -106,3 +96,4 @@ let g:deoplete#sources#ternjs#tern_bin = '/usr/bin/tern'
 let g:deoplete#sources#ternjs#timeout = 1
 let g:tern#command = ["tern"]
 let g:tern#arguments = ["--persistent"]
+

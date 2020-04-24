@@ -4,29 +4,12 @@ fi
 
 # vi mode and prompt setup
 set -o vi
-#PS1="\[\033[0;38;5;011m\]\033[1m\u\[\033[0;38;5;002m\] \033[1m\w \[\033[0;38;5;008m\]\033[1m$\[\033[00m\] "
-#PS1="\u \w \$ "
-PS1="\u \$ "
-
- #Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/"
 if [ $TERM != "linux" ] ; then
+  BASE16_SHELL="$HOME/.config/base16-shell/"
   [ -n "$PS1" ] && \
       [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
           eval "$("$BASE16_SHELL/profile_helper.sh")"
-  eval "$(dircolors ~/.dircolors)";
 fi
-
-# Various environment variables to set
-export SRCDIR=~/apps/src
-export APPDIR=~/apps
-export BROWSER=/usr/bin/chromium
-export EDITOR=/usr/bin/nvim
-export VISUAL=${EDITOR}
-export WM=dwm
-export FM=pcmanfm-qt
-export _JAVA_AWT_WM_NONREPARENTING=1
-export PATH=$PATH:~/apps/bin/
 
 # aliases
 alias pd='pushd'
@@ -45,7 +28,7 @@ alias capstoesc="xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'"
 alias bashrc='$EDITOR ~/.bashrc' 
 alias dwmsrc='cd ~/apps/src/dwm-mygit && $EDITOR config.h' 
 alias xinitrc='$EDITOR ~/.xinitrc'
-alias keywords='sudoedit /etc/portage/package.keywords'
+alias keywords='sudoedit /etc/portage/package.accept_keywords'
 alias useflags='sudoedit /etc/portage/package.use'
 alias masked='sudoedit /etc/portage/package.mask/package.mask'
 alias ..='cd ..'
@@ -59,7 +42,7 @@ alias gD='pushd ~/Desktop'
 alias gd='pushd ~/Downloads'
 alias gh='pushd ~/'
 alias gm='pushd ~/music'
-alias gV='pushd ~/Videos'
+alias gv='pushd ~/Videos'
 alias gc='pushd ~/Documents/school/College'
 alias ga='pushd ${APPDIR}'
 alias gp='pushd ~/Documents/My\ Pictures'
@@ -74,7 +57,7 @@ alias gsteam='pushd /media/windows/games/PC/Steam/steamapps/common/'
 alias configure-32bit='CC="cc -m32" CXX="c++ -m32" ./configure --host=i686-pc-linux-gnu'
 alias info2man='info --subnodes --output=info.txt'
 alias ssh-cse-usc='ssh -l ddesai -p 222 L-1D43-04.cse.sc.edu'
-alias startx='startx > /dev/null 2>&1'
+#alias startx='startx > /dev/null 2>&1'
 
 # macros
 bind '"\eOP": "st  > /dev/null 2>&1 & \n"'
@@ -84,3 +67,5 @@ bind '"\eOS": "ls -la \n"'
 bind '"\eOS": "ls -la \n"'
 bind '"\e[15~": "pwd \n"'
 bind '"\e[17~": "dirs \n"'
+LS_COLORS='ow=0'
+export LS_COLORS
