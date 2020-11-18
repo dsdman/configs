@@ -1,24 +1,48 @@
 " basic features of vim
-colo elflord
 set shortmess=I "disable welcome screen
 set showmatch "highlight matching () and {} and []
-set t_Co=256 "256 color
-let base16colorspace=256
 set number "line numbers
 set relativenumber
-set ruler "ruler
-set laststatus=2 "don't waste space by showing whole statusline
 set noshowmode "don't show mode you are in (statusline does it)
 set mouse=a "mouse 
 set noswapfile "disable swap file
-set splitright "split right
-set splitbelow "split below
 set encoding=utf-8 "enable unicode encoding
-filetype on
 filetype plugin indent on
 filetype plugin on
-set completefunc=syntaxcomplete#Complete
 set omnifunc=syntaxcomplete#Complete
+
+" Plugin stuff
+call plug#begin('~/.config/nvim/plugged')
+Plug 'https://github.com/tpope/vim-fugitive'
+Plug 'https://github.com/ternjs/tern_for_vim'
+Plug 'chriskempson/base16-vim'
+Plug 'itchyny/lightline.vim'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'yuezk/vim-js'
+Plug 'preservim/nerdcommenter'
+Plug 'mattn/emmet-vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+call plug#end()
+
+" color scheme
+colorscheme base16-default-dark
+
+" emmet config
+let g:user_emmet_leader_key=','
+
+" fuzzy finder config
+nnoremap <C-p> :FZF<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit'
+  \}
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " tab completion
 set complete=k "Global autocomplete
@@ -39,61 +63,39 @@ set expandtab "use spaces
 set smarttab
 set backspace=indent,eol,start "make backspace complete
 
-" leader bindings
+" general bindings
 set <F1>=<C-v><F1>
 let mapleader = " "
-nnoremap <leader>w :w<cr>
-nnoremap <leader>W :w
+nnoremap <leader>s :w<cr>
 nnoremap <leader>q :q!<cr>
-nnoremap <leader>Q :q
 nnoremap <leader>/ :set hlsearch!<cr>
 nnoremap <leader>g <C-G>
 nnoremap <leader>r <C-R>
-nnoremap <leader>te :tabedit 
-nnoremap <leader>v :vsplit 
-nnoremap <leader>h :split 
-nnoremap <leader>s <C-W>w
 nnoremap <leader>d <C-D>
 nnoremap <leader>u <C-U>
-nnoremap <leader>a :syntax off<cr>
-nnoremap <leader>A :syntax on<cr>
-nnoremap <F1> :!st > /dev/null 2>&1 &<cr><cr>
+nnoremap <expr> <leader>y exists('g:syntax_on') ? ':syntax off<CR>' : ':syntax enable<CR>'
+nnoremap <F1> :!konsole > /dev/null 2>&1 &<cr><cr>
 
-" Move around splits and tabs easier
+" window  bindings
+set splitright "split right
+set splitbelow "split below
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
-nnoremap <c-tab> gt
-nnoremap <c-shift-tab> gT
+nnoremap <leader>v :ls<cr>:vsplit 
+nnoremap <leader>h :ls<cr>:split 
 
+" buffer bindings 
+set hidden
+nnoremap <leader>l :ls<cr>:b 
+nnoremap <leader>n :bn<cr>
+nnoremap <leader>p :bp<cr>
+nnoremap <leader>w :close<cr>
+nnoremap <leader>o <c-w>o
+nnoremap <leader>e :e 
+nnoremap <leader>te :ls<cr>:tabedit 
 
 " custom commands
 command HexEdit execute "%!xxd"
 command Hex2Text execute "%!xxd -r"
-
-" Plugin stuff
-call plug#begin('~/.config/nvim/plugged')
-Plug 'https://github.com/ternjs/tern_for_vim'
-Plug 'https://github.com/Shougo/deoplete.nvim'
-Plug 'https://github.com/carlitux/deoplete-ternjs'
-Plug 'chriskempson/base16-vim'
-Plug 'itchyny/lightline.vim'
-call plug#end()
-
-" highlight line number
-hi CursorLineNR ctermfg=256 cterm=bold
-
-" deoplete config
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#enable_refresh_always = 1
-let g:deoplete#max_abbr_width = 0
-let g:deoplete#max_menu_width = 0
-let g:deoplete#sources#ternjs#tern_bin = '/usr/bin/tern'
-let g:deoplete#sources#ternjs#timeout = 1
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
-

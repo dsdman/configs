@@ -10,6 +10,10 @@ if [ $TERM != "linux" ] ; then
       [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
           eval "$("$BASE16_SHELL/profile_helper.sh")"
 fi
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+export PS1="\[\e[32m\]\w \[\e[91m\]\$(parse_git_branch)\[\e[00m\]$ "
 
 # aliases
 alias pd='pushd'
@@ -19,6 +23,7 @@ alias l='ls -la'
 alias v='${EDITOR}'
 alias ed='ed -v -p \*'
 alias vim='${EDITOR}'
+alias nvim='nvim'
 alias feh='feh --scale-down'
 alias st-tabbed='tabbed -c -r 2 st -w '' -e'
 alias mplayer='mpv'
@@ -52,7 +57,6 @@ alias gdoc='pushd ~/Documents'
 alias gwin='pushd /media/windows'
 alias gbin='pushd /home/dylan/apps/bin'
 alias gwinhome='pushd /media/windows/Users/desai'
-alias gcap='pushd /media/windows/Users/dsd123/Documents/school/College/Captone\ Computing\ Project/Project/C2webapp'
 alias gsteam='pushd /media/windows/games/PC/Steam/steamapps/common/'
 alias configure-32bit='CC="cc -m32" CXX="c++ -m32" ./configure --host=i686-pc-linux-gnu'
 alias info2man='info --subnodes --output=info.txt'
@@ -60,7 +64,7 @@ alias ssh-cse-usc='ssh -l ddesai -p 222 L-1D43-04.cse.sc.edu'
 #alias startx='startx > /dev/null 2>&1'
 
 # macros
-bind '"\eOP": "st  > /dev/null 2>&1 & \n"'
+bind '"\eOP": "konsole  > /dev/null 2>&1 & \n"'
 bind '"\eOQ": "ls -l \n"'
 bind '"\eOR": "ls \n"'
 bind '"\eOS": "ls -la \n"'
@@ -69,3 +73,10 @@ bind '"\e[15~": "pwd \n"'
 bind '"\e[17~": "dirs \n"'
 LS_COLORS='ow=0'
 export LS_COLORS
+
+# completion
+bind 'set show-all-if-ambiguous on'
+bind 'TAB:menu-complete'
+bind '"\e[Z":menu-complete-backward'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
