@@ -10,6 +10,9 @@ set encoding=utf-8 "enable unicode encoding
 filetype plugin indent on
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
+set autoread " updates files upon changes
+au CursorHold * checktime
+set title
 
 " Plugin stuff
 call plug#begin('~/.config/nvim/plugged')
@@ -34,6 +37,8 @@ colorscheme base16-default-dark
 
 " emmet config
 let g:user_emmet_leader_key=','
+let g:user_emmet_install_global=0
+autocmd FileType html,css,javascript,javascript.jsx,javascriptreact EmmetInstall
 
 " fuzzy finder config
 nnoremap <C-p> :FZF<CR>
@@ -46,7 +51,6 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " tab completion
 set complete=k "Global autocomplete
-set completeopt+=longest "show complete tab completions
 set path +=** " tab-completion for everything
 set wildmenu "display all matches when completing
 
@@ -64,17 +68,15 @@ set smarttab
 set backspace=indent,eol,start "make backspace complete
 
 " general bindings
-set <F1>=<C-v><F1>
 let mapleader = " "
 nnoremap <leader>s :w<cr>
 nnoremap <leader>q :q!<cr>
 nnoremap <leader>/ :set hlsearch!<cr>
 nnoremap <leader>g <C-G>
-nnoremap <leader>r <C-R>
+nnoremap <leader>r :e!<cr>
 nnoremap <leader>d <C-D>
 nnoremap <leader>u <C-U>
 nnoremap <expr> <leader>y exists('g:syntax_on') ? ':syntax off<CR>' : ':syntax enable<CR>'
-nnoremap <F1> :!konsole > /dev/null 2>&1 &<cr><cr>
 
 " window  bindings
 set splitright "split right
@@ -93,7 +95,7 @@ nnoremap <leader>n :bn<cr>
 nnoremap <leader>p :bp<cr>
 nnoremap <leader>w :close<cr>
 nnoremap <leader>o <c-w>o
-nnoremap <leader>e :e 
+nnoremap <leader>e :ls<cr>:e 
 nnoremap <leader>te :ls<cr>:tabedit 
 
 " custom commands

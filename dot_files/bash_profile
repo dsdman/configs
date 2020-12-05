@@ -12,10 +12,12 @@ killall mpd ; mpd
 # environment variables
 export SRCDIR=~/apps/src
 export APPDIR=~/apps
-export BROWSER=/usr/bin/chromium
+export BROWSER=/usr/bin/firefox
+export TERMINAL=/usr/local/bin/st
 export EDITOR=/usr/bin/nvim
 export VISUAL=${EDITOR}
 export WM=dwm
 export FM=pcmanfm-qt
 export _JAVA_AWT_WM_NONREPARENTING=1
-export PATH=$PATH:~/apps/bin/:~/.local/bin/
+export PATH=$PATH:~/apps/bin/:~/.local/bin/:~/.dotnet/
+export DOTNET_ROOT=~/.dotnet
