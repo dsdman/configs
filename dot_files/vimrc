@@ -85,6 +85,10 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+nnoremap <M-j> <c-w>+
+nnoremap <M-k> <c-w>-
+nnoremap <M-l> <c-w>>
+nnoremap <M-h> <c-w><
 nnoremap <leader>v :ls<cr>:vsplit 
 nnoremap <leader>h :ls<cr>:split 
 
