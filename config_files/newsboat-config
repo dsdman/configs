@@ -1,0 +1,51 @@
+# generic
+reload-threads 75
+auto-reload yes
+
+# unbinds
+unbind-key ^D
+unbind-key C
+unbind-key q
+unbind-key Q
+unbind-key h
+
+# binds
+bind-key r reload-all
+bind-key R reload
+bind-key q quit filebrowser
+bind-key q quit help
+bind-key q quit articlelist
+bind-key q quit article
+bind-key q quit tagselection
+bind-key q quit filterselection
+bind-key q quit urlview
+bind-key q quit dialogs
+bind-key h quit filebrowser
+bind-key h quit help
+bind-key h quit articlelist
+bind-key h quit article
+bind-key h quit tagselection
+bind-key h quit filterselection
+bind-key h quit urlview
+bind-key h quit dialogs
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key 0 home
+bind-key g home
+bind-key $ end
+bind-key G end
+bind-key SPACE toggle-article-read
+bind-key N prev-unread
+bind-key ] next feedlist
+bind-key [ prev feedlist
+bind-key ^U pageup
+bind-key ^D pagedown
+
+# macros
+browser /usr/bin/librewolf-bin
+macro v set browser "mpv" ; open-in-browser ; set browser /usr/bin/librewolf-bin
+
+# highlight subheadings
+highlight feedlist "---.*---" yellow yellow default bold
+highlight feedlist ".*0/0.." default default invis
